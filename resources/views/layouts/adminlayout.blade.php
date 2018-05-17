@@ -21,6 +21,7 @@
     <link rel="stylesheet" href="{{asset('admin-ui/assets/css/cs-skin-elastic.css')}}">
     <!-- <link rel="stylesheet" href="{{asset('admin-ui/assets/css/bootstrap-select.less')}}"> -->
     <link rel="stylesheet" href="{{asset('admin-ui/assets/scss/style.css')}}">
+    <link rel="stylesheet" href="{{asset('css/bagus-style.css')}}">
 
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800' rel='stylesheet' type='text/css'>
 
@@ -31,6 +32,7 @@
   integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
   crossorigin="anonymous"></script> --}}
   <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
+    <script src="{{asset('js/validator.js')}}"></script>
     <script src="{{asset('admin-ui/assets/js/popper.min.js')}}"></script>
     <script src="{{asset('admin-ui/assets/js/plugins.js')}}"></script>
     <script src="{{asset('admin-ui/assets/js/main.js')}}"></script>
