@@ -1,3 +1,25 @@
+textarea:focus,
+input[type="text"]:focus,
+input[type="password"]:focus,
+input[type="datetime"]:focus,
+input[type="datetime-local"]:focus,
+input[type="date"]:focus,
+input[type="month"]:focus,
+input[type="time"]:focus,
+input[type="week"]:focus,
+input[type="number"]:focus,
+input[type="email"]:focus,
+input[type="url"]:focus,
+input[type="search"]:focus,
+input[type="tel"]:focus,
+input[type="color"]:focus,
+.uneditable-input:focus {
+  border-color: #fd9714;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px #fd9714;
+  outline: 0 none;
+}
+
+
 .help-block.with-errors {
     color: white;
     font-size:  9pt;
@@ -25,7 +47,7 @@
 .blst-header{
   height: 73px;
   background-image: linear-gradient(265deg,#fd9714,#f9663a);
-  position: relative;
+  position: sticky;
   padding:10px;
 }
 
@@ -69,6 +91,11 @@
     color:white;
 }
 
+.regular-header{
+  margin-right: 20px;
+  margin-top: 6px;
+}
+
 .right-header{
   position: absolute;
   right: 5px;
@@ -84,4 +111,8 @@
   .mobile-trigger{
     display:none;
   }
+}
+
+.form-control{
+  border-radius: 13px;
 }
