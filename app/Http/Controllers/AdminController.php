@@ -27,7 +27,7 @@ class AdminController extends Controller
 
     public function jobvacancy()
     {
-      $jobs = job::all();
+      $jobs = job::orderBy('created_at', 'desc')->get();
 
       $data = array('jobs' =>$jobs , );
       return view('admin.jobvacancy')->with($data);
@@ -47,10 +47,49 @@ class AdminController extends Controller
       $job->skill_tag = $request->skill_tag;
       $job->job_description = $request->job_description;
       $job->skill_requirement = $request->skill_requirement;
+      $job->work_location = $request->work_location;
+      $job->min_experience = $request->min_experience;
       $job->save();
 
       Session::flash('status','Job Vacancy Successfully Created');
 
+      return redirect()->route('admin.jobvacancy.index');
+    }
+
+    public function jobvacancy_edit($id)
+    {
+      $job = job::find($id);
+      $status = 'edit';
+
+      $data = array('job' =>$job,
+                    'status'=> $status
+                    );
+      return view('admin.jobvacancyadd')->with($data);
+    }
+
+    public function jobvacancy_edit_post(Request $request, $id)
+    {
+
+      $job = job::find($id);
+      $job->user_id = Auth::user()->id;
+      $job->job_title = $request->job_title;
+      $job->time_type = $request->time_type;
+      $job->skill_tag = $request->skill_tag;
+      $job->job_description = $request->job_description;
+      $job->skill_requirement = $request->skill_requirement;
+      $job->work_location = $request->work_location;
+      $job->min_experience = $request->min_experience;
+      $job->update();
+
+      Session::flash('status','Job Vacancy Successfully Edited');
+
+      return redirect()->route('admin.jobvacancy.index');
+    }
+
+    public function jobvacancy_delete(Request $request,$id)
+    {
+      $job = job::find($id)->delete();
+      Session::flash('status','Job Vacancy Successfully Deleted');
       return redirect()->route('admin.jobvacancy.index');
     }
 }

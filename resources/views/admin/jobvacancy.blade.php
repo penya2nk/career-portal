@@ -34,7 +34,16 @@ Job Vacancy
                           <h2 class="text-light display-6">{{$job->job_title}}</h2>
                           <p>{{$job->time_type}}</p>
                           <div class="button-edit">
-                            <a href="#" class="btn btn-warning btn-sm">Edit</a>
+                            <form class="" action="{{route('admin.jobvacancy.edit',['id'=>$job->id])}}" method="post">
+                              {{ csrf_field() }}
+                              <button type="submit" class="btn btn-warning btn-sm">Edit</button>
+                            </form>
+                            <div class="delete-button-header">
+                              <form class="" action="{{route('admin.jobvacancy.delete',['id'=>$job->id])}}" method="post">
+                                {{ csrf_field() }}
+                                <button type="button" class="btn delete-job btn-default btn-sm">X</button>
+                              </form>
+                            </div>
                             {{-- <a href="#" class="btn btn-danger btn-sm">Delete</a> --}}
                           </div>
                         </div>
@@ -79,6 +88,24 @@ Job Vacancy
       </script>
     @endif
 
+    <script type="text/javascript">
+      $('.delete-job').on('click', function() {
+        swal({
+          title: "Are you sure?",
+          text: "But you will still be able to retrieve this action.",
+          type: "warning",
+          showCancelButton: true,
+          confirmButtonColor: "#f44336",
+          confirmButtonText: "Yes, Delete it!",
+          cancelButtonText: "No, cancel please!",
+
+        }).then((result) => {
+      if (result.value) {
+            $(this).parent().submit();
+          }
+        });
+      });
+  </script>
 
 
 

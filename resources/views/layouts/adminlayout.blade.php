@@ -35,7 +35,7 @@
     <script src="{{asset('js/validator.js')}}"></script>
     <script src="{{asset('admin-ui/assets/js/popper.min.js')}}"></script>
     <script src="{{asset('admin-ui/assets/js/plugins.js')}}"></script>
-    <script src="{{asset('admin-ui/assets/js/main.js')}}"></script>
+    {{-- <script src="{{asset('admin-ui/assets/js/main.js')}}"></script> --}}
 
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
 
