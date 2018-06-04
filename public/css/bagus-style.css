@@ -19,6 +19,20 @@ input[type="color"]:focus,
   outline: 0 none;
 }
 
+.job-desc{
+  margin-top:-146px;
+  background: white;
+  width: 85%;
+  margin-right:auto;
+  margin-left: auto;
+  padding: 40px;
+}
+
+.detail-job-sub {
+    float: left;
+    display: inline-block;
+    margin-right: 40px;
+}
 
 .help-block.with-errors {
     color: white;
@@ -35,6 +49,36 @@ input[type="color"]:focus,
   position: absolute;
   right: 9px;
   top: 9px;
+}
+
+.job-description{
+  margin-top:40px;
+  font-size: 12pt;
+}
+
+.company-blst{
+  font-size: 15pt;
+}
+
+.apply-button{
+  height: 80px;
+  overflow: hidden;
+}
+
+.btn-square{
+  border-radius: 0px !important;
+  border-bottom: 9px solid #ff7600;
+  padding: 20px;
+}
+
+.btn-square:active{
+  border-radius: 0px !important;
+  border-bottom: 0px solid #ff7600;
+  padding: 20px;
+
+  -ms-transform: translate(0px, 9px); /* IE 9 */
+    -webkit-transform: translate(0px, 9px); /* Safari */
+    transform: translate(0px, 9px);
 }
 
 .header___logo {
@@ -115,4 +159,186 @@ input[type="color"]:focus,
 
 .form-control{
   border-radius: 13px;
+}
+
+.fullscreen-background{
+  height: 95%;
+  width: 100%;
+  position: fixed; /* Stay in place */
+  margin-top: 63px;
+  z-index: -1; /* Sit on top */
+  left: 0;
+  top: 0;
+  background-image: linear-gradient(265deg,#fd9714,#f9663a);
+  overflow-x: hidden; /* Disable horizontal scroll */
+  transition: 0.3s; /* 0.5 second transition effect to slide in or slide down the overlay (height or width, depending on reveal) */
+}
+
+.background-blst{
+  background-image: linear-gradient(265deg,#fd9714,#f9663a);
+}
+
+.background-grey-gradient{
+  background-image: linear-gradient(265deg,#e4e4e4,#cfcfcf);
+}
+
+.login-wrapper{
+  width: 60%;
+  margin: auto;
+  margin-top:10%;
+  color: white;
+  text-align: center;
+}
+
+.btn{
+  border-radius: 13px;
+}
+
+.user-area {
+  float: right;
+  padding-right: 0;
+  padding-left: 10px;
+  position: relative; }
+  .user-area .user-menu {
+    background: #fff;
+    border: none;
+    font-family: 'Open Sans';
+    left: inherit !important;
+    right: 0;
+    top: 55px !important;
+    margin: 0;
+    max-width: 150px;
+    padding: 5px 10px;
+    position: absolute;
+    width: 100%;
+    z-index: 999;
+    min-width: 150px; }
+    .user-area .user-menu .nav-link {
+      color: #272c33;
+      display: block;
+      font-size: 14px;
+      line-height: 22px;
+      padding: 5px 0; }
+  .user-area .user-avatar {
+    float: right;
+    margin-top: 4px;
+    width: 40px; }
+  .user-area .user-info .name {
+    color: #8c8c8c;
+    font-size: 14px;
+    position: relative;
+    text-transform: uppercase; }
+  .user-area .count {
+    background: #d9534f;
+    border-radius: 50%;
+    color: #fff;
+    font-family: 'Open Sans';
+    font-size: 9px;
+    font-weight: 700;
+    float: right;
+    height: 20px;
+    width: 20px;
+    line-height: 20px;
+    text-align: center; }
+
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content{
+    display: none;
+    position: absolute;
+    right: 10px;
+    top:20px;
+    background-color: white;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+/* Links inside the dropdown */
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+/* Change color of dropdown links on hover */
+.dropdown-content a:hover {background-color: #ddd}
+
+/* Show the dropdown menu on hover */
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+/* Change the background color of the dropdown button when the dropdown content is shown */
+.dropdown:hover .dropbtn {
+    background-color: #3e8e41;
+}
+
+.banner-video-wrapper {
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+}
+
+.main-slider-wrapper{
+  background: #000;
+    background-size: cover;
+    position: relative;
+    padding-top: 100px;
+    padding-bottom: 70px;
+    margin-top: 0px;
+    height: 300px;
+    overflow: hidden;
+    z-index: -1;
+}
+
+.no-padding{
+  padding:0;
+}
+
+.caption-job-header{
+  color:white;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.padding-right-left{
+  padding-right:10px;
+  padding-left: 10px;
+}
+
+.card-wrapper-job{
+    background: white;
+    background-size: cover;
+    position: relative;
+    margin-top:20px;
+    margin: 10px;
+    height: 200px;
+    padding: 20px;
+    overflow: hidden;
+}
+
+.card-wrapper-job .card-job-title{
+  display: block;
+  color:#6f6f6f;
+  font-weight: 600;
+  font-size: 15pt;
+  padding-bottom: 10px;
+}
+
+.job-time-criteria{
+  color:grey;
+  font-size:10pt;
+  display: block;
+}
+
+.card-wrapper-job a{
+  position: absolute;
+  right:20px;
+  bottom:20px;
 }

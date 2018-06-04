@@ -94,7 +94,7 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-      dd($data);
+      
 
       $user = new User;
       $user->name = $data['name'];

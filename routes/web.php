@@ -11,9 +11,10 @@
 |
 */
 
-Route::get('/', function () {
-    return view('layouts.application');
-});
+Route::get('/', 'HomeController@index');
+
+Route::get('/job/{id}', 'HomeController@job')->name('job.desc');
+
 
 Auth::routes();
 
@@ -34,6 +35,8 @@ Route::post('/admin/job-vacancy/create', 'AdminController@jobvacancy_create')->n
 Route::post('/admin/job-vacancy/{id}/edit', 'AdminController@jobvacancy_edit')->name('admin.jobvacancy.edit');
 Route::post('/admin/job-vacancy/{id}/save', 'AdminController@jobvacancy_edit_post')->name('admin.jobvacancy.postedit');
 Route::post('/admin/job-vacancy/{id}/delete', 'AdminController@jobvacancy_delete')->name('admin.jobvacancy.delete');
+
+Route::get('/job/{id}/apply', 'ApplyController@apply')->name('job.desc.apply');
 
 
 });

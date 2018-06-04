@@ -66,9 +66,41 @@
                   <span class="fa fa-briefcase"></span>
                   Available Jobs
                 </a>
-                <a href="#" class="btn btn-warning">
-                  Login or Register
-                </a>
+                @guest
+                  <a href="{{route('login')}}" class="btn btn-warning">
+                    Login or Register
+                  </a>
+                @else
+                  <div class="user-area dropdown float-right">
+                        <a href="#" class="dropbtn">
+                          @if (Auth::user()->photo_profile !== NULL)
+                            <img class="user-avatar rounded-circle" src="{{Auth::user()->photo_profile}}" alt="User Avatar">
+                          @else
+                            <img class="user-avatar rounded-circle" src="{{asset('images/male-blank.jpg')}}" alt="User Avatar">
+                          @endif
+                        </a>
+                        <h6>{{Auth::user()->name}}</h6>
+
+                        <div class="dropdown-content">
+                                {{-- <a class="nav-link" href="#"><i class="fa fa- user"></i>My Profile</a>
+
+                                <a class="nav-link" href="#"><i class="fa fa- user"></i>Notifications <span class="count">13</span></a>
+
+                                <a class="nav-link" href="#"><i class="fa fa -cog"></i>Settings</a> --}}
+                                <a href="#">My Resume</a>
+                                <a href="#">My Application</a>
+                                <a class="dropdown-item" href="{{ route('logout') }}"
+                                   onclick="event.preventDefault();
+                                                 document.getElementById('logout-form').submit();">
+                                    {{ __('Logout') }}
+                                </a>
+
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                    @csrf
+                                </form>
+                        </div>
+                    </div>
+                @endguest
               </div>
             </div>
           {{-- </div> --}}
