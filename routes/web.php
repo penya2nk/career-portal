@@ -37,6 +37,39 @@ Route::post('/admin/job-vacancy/{id}/save', 'AdminController@jobvacancy_edit_pos
 Route::post('/admin/job-vacancy/{id}/delete', 'AdminController@jobvacancy_delete')->name('admin.jobvacancy.delete');
 
 Route::get('/job/{id}/apply', 'ApplyController@apply')->name('job.desc.apply');
+Route::post('/job/{id}/apply', 'ApplyController@post_apply')->name('job.desc.post');
 
+Route::get('/profile','userController@profile')->name('my.profile');
+Route::get('/profile','userController@application')->name('my.application');
+
+// SELEKSI
+// Seleksi Section
+  Route::get('/admin/seleksi', 'admin\seleksiController@index')->name('seleksi.index');
+  Route::get('/admin/seleksi/data', 'admin\seleksiController@member_data')->name('seleksi.data');
+
+  // Tahapan Seleksi
+  Route::get('/admin/seleksi/stage', 'admin\seleksiController@stage_index')->name('stage.index');
+  Route::post('/admin/seleksi/stage/add', 'admin\seleksiController@stage_post')->name('stage.post');
+  Route::post('/admin/seleksi/stage/edit', 'admin\seleksiController@stage_edit')->name('stage.edit');
+  Route::post('/admin/seleksi/stage/delete', 'admin\seleksiController@stage_delete')->name('stage.delete');
+
+
+  // Parameter Seleksi
+  Route::get('/admin/seleksi/parameter', 'admin\seleksiController@parameter_index')->name('parameter.index');
+  Route::post('/admin/seleksi/parameter/add', 'admin\seleksiController@parameter_post')->name('parameter.post');
+  Route::post('/admin/seleksi/parameter/edit', 'admin\seleksiController@parameter_edit')->name('parameter.edit');
+  Route::post('/admin/seleksi/parameter/delete', 'admin\seleksiController@parameter_delete')->name('parameter.delete');
+
+  Route::post('/admin/seleksi/score/punch', 'admin\seleksiController@save_score')->name('score.save');
+  Route::post('/admin/seleksi/score/lock','admin\seleksiController@lock_score')->name('score.lock');
+  Route::post('/admin/seleksi/score/save','admin\seleksiController@save_score_each')->name('score.each.save');
+
+  Route::post('/admin/seleksi/score/lock-all','admin\seleksiController@lock_all')->name('lock.all');
+  Route::post('/admin/seleksi/score/unlock-all','admin\seleksiController@unlock_all')->name('unlock.all');
+
+  // Hasil Seleksi
+  Route::get('/admin/seleksi/score/result','admin\seleksiController@score_result')->name('seleksi.result');
+
+  Route::post('/admin/seleksi/score/stage-change','admin\seleksiController@change_stage')->name('stage.status.save');
 
 });

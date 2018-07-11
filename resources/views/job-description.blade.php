@@ -86,4 +86,16 @@
     </div>
   </div>
 </div>
+
+@if (session()->has('status'))
+<script type="text/javascript">
+    swal({
+                  title:'Gagal!',
+                  text:'{{session()->get('status')}}',
+                  type:'error'
+                },
+              )
+
+</script>
+@endif
 @endsection

@@ -31,7 +31,7 @@
   src="https://code.jquery.com/jquery-3.3.1.js"
   integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
   crossorigin="anonymous"></script> --}}
-  <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
     <script src="{{asset('js/validator.js')}}"></script>
     <script src="{{asset('admin-ui/assets/js/popper.min.js')}}"></script>
     <script src="{{asset('admin-ui/assets/js/plugins.js')}}"></script>
@@ -72,6 +72,22 @@
 
                     <li class="{{($routename == 'add_admin_index') ? 'active' : ''}}">
                         <a href="{{route('admin.jobvacancy.index')}}"> <i class="menu-icon fa fa-suitcase"></i>Job Vacancy</a>
+                    </li>
+
+                    <li>
+                      <hr style="border-top:1px solid rgb(56, 213, 68)">
+                    </li>
+
+                    <li class="{{($routename == 'stage.index') ? 'active' : ''}}">
+                      <a href="{{route('stage.index')}}"> <i class="menu-icon fa fa-location-arrow"></i>Tahapan Seleksi</a>
+                    </li>
+
+                    <li class="{{($routename == 'parameter.index') ? 'active' : ''}}">
+                        <a href="{{route('parameter.index')}}"> <i class="menu-icon fa fa-child"></i>Parameter Penilaian</a>
+                    </li>
+
+                    <li class="{{($routename == 'seleksi.index') ? 'active' : ''}}">
+                      <a href="{{route('seleksi.index')}}"> <i class="menu-icon fa fa-hand-lizard-o"></i>Seleksi</a>
                     </li>
                     {{-- <h3 class="menu-title">UI elements</h3><!-- /.menu-title -->
                     <li class="menu-item-has-children dropdown">
