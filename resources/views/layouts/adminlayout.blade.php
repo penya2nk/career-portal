@@ -339,6 +339,12 @@
 
         <!--  Chart js -->
     @yield('script')
+    <script type="text/javascript">
+    $('#menuToggle').on('click', function(event) {
+      $('body').toggleClass('open');
+      console.log("tes")
+    });
+    </script>
 
 
 </body>

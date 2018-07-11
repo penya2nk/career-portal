@@ -18,7 +18,7 @@ stages Selection
           <form class="" data-toggle="validator" role="form" action="{{route('stage.post')}}" method="post">
             {{ csrf_field() }}
             <div class="row">
-              <div class="col-md-4">
+              <div class="col-md-6">
                 <div class="form-group">
                   <span class="label">Nama Tahapan Seleksi</span>
                   <div class="input-group">
@@ -27,7 +27,7 @@ stages Selection
                   <span class="help-block with-errors"></span>
                 </div>
               </div>
-              <div class="col-md-3">
+              {{-- <div class="col-md-3">
                 <div class="form-group">
                   <span class="label">Tanggal Mulai</span>
                   <div class="input-group">
@@ -42,7 +42,7 @@ stages Selection
                     <input type="date" id="skala-admin" name="end_date" placeholder="Tanggal Selesai" class="form-control">
                   </div>
                 </div>
-              </div>
+              </div> --}}
               {{-- <div class="col-md-2">
                 <div class="form-group">
                   <span class="label">Warna</span>
@@ -51,11 +51,11 @@ stages Selection
                   </div>
                 </div>
               </div> --}}
-              <div class="col-md-2">
+              <div class="col-md-6">
                 <div class="form-group">
                   <span class="label">Presentase</span>
                   <div class="input-group">
-                    <input type="number" id="" min="0" max="100" name="percentage" placeholder="Persentase" class="form-control">
+                    <input type="number" id="" required min="0" max="100" name="percentage" placeholder="Persentase" class="form-control">
                     <span class="input-group-addon">%</span>
                   </div>
                 </div>
@@ -83,8 +83,8 @@ stages Selection
             <thead>
               <th>No</th>
               <th>stage</th>
-              <th>Tanggal Mulai</th>
-              <th>Tanggal Selesai</th>
+              {{-- <th>Tanggal Mulai</th>
+              <th>Tanggal Selesai</th> --}}
               <th>Persentase</th>
               <th>Action</th>
             </thead>
@@ -98,8 +98,8 @@ stages Selection
                   <tr>
                     <td>{{$i++}}</td>
                     <td>{{$stage->stage_name}}</td>
-                    <td>{{$stage->start_date !== NULL ? $stage->start_date->format('d-m-Y'): ''}}</td>
-                    <td>{{$stage->end_date !== NULL ? $stage->end_date->format('d-m-Y'): ''}} </td>
+                    {{-- <td>{{$stage->start_date !== NULL ? $stage->start_date->format('d-m-Y'): ''}}</td>
+                    <td>{{$stage->end_date !== NULL ? $stage->end_date->format('d-m-Y'): ''}} </td> --}}
                     {{-- <td style="background:{{$stage->color}};">{{$stage->color}} </td> --}}
                     <td>{{$stage->percentage}} %</td>
                     <td>

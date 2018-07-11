@@ -43,6 +43,7 @@ class AdminController extends Controller
       $job = new job;
       $job->user_id = Auth::user()->id;
       $job->job_title = $request->job_title;
+      $job->stages_list = serialize($request->stage);
       $job->time_type = $request->time_type;
       $job->skill_tag = $request->skill_tag;
       $job->job_description = $request->job_description;
@@ -72,6 +73,7 @@ class AdminController extends Controller
 
       $job = job::find($id);
       $job->user_id = Auth::user()->id;
+      $job->stages_list = serialize($request->stage);
       $job->job_title = $request->job_title;
       $job->time_type = $request->time_type;
       $job->skill_tag = $request->skill_tag;
