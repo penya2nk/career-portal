@@ -10,5 +10,6 @@ class company extends Model
 {
     protected $connection = 'mysql2';
     protected $table = 'tblcompany';
+    protected $primaryKey = 'id_company';
       use SoftDeletes;
 }

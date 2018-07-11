@@ -31,6 +31,7 @@ Job Vacancy
                           <img class="align-self-center rounded-circle mr-3" style="width:85px; height:85px;" alt="" src="images/admin.jpg">
                         </a> --}}
                         <div class="media-body">
+                          <span class="badge badge-secondary" title="{{$job->company->name_company}}">{{$job->company->comt_data}}</span>
                           <h2 class="text-light display-6">{{$job->job_title}}</h2>
                           <p>{{$job->time_type}}</p>
                           <div class="button-edit">
@@ -61,9 +62,9 @@ Job Vacancy
                           <li class="list-group-item">
                               <a href="#"> <i class="fa fa-bell-o"></i> Candidate <span class="badge badge-success pull-right">0</span></a>
                           </li>
-                          {{-- <li class="list-group-item">
-                              <a href="#"> <i class="fa fa-comments-o"></i> Message <span class="badge badge-warning pull-right r-activity">03</span></a>
-                          </li> --}}
+                          <li class="list-group-item text-center">
+                              <span class="badge {{$job->published == 1 ? 'badge-success' : 'badge-secondary'}}">{{$job->published == 1 ? 'Published' : 'Draft'}}</span>
+                          </li>
                       </ul>
                   </section>
               </aside>

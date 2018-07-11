@@ -32,6 +32,39 @@ Add Job Vacancy
 @section('content')
 <form data-toggle="validator" class="" @if(!isset($status)) action="{{route('admin.jobvacancy.create')}}" @else action="{{route('admin.jobvacancy.postedit', ['id'=>$job->id])}}" @endif  method="post">
   {{ csrf_field() }}
+  <div class="row">
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-header">
+          <strong>Perusahaan</strong>
+        </div>
+        <div class="card-body card-block">
+          <div class="form-group">
+            <select class="form-control select2" name="company_id">
+              @foreach (App\models\company::all() as $company)
+                <option @if(isset($status)) @if($job->company_id == $company->id_company) selected @endif @endif value="{{$company->id_company}}">{{$company->name_company}} ({{$company->comt_data}})</option>
+              @endforeach
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-header">
+          <strong>Status</strong>
+        </div>
+        <div class="card-body card-block">
+          <div class="form-group">
+            <select class="form-control" name="published">
+              <option @if(isset($status)) @if($job->published == "1") selected @endif @endif value="1">Published</option>
+              <option @if(isset($status)) @if($job->published == "0") selected @endif @endif value="0">Draft</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
     <div class="row">
       <div class="col-lg-6">
         <div class="card">
