@@ -40,7 +40,7 @@ Route::get('/job/{id}/apply', 'ApplyController@apply')->name('job.desc.apply');
 Route::post('/job/{id}/apply', 'ApplyController@post_apply')->name('job.desc.post');
 
 Route::get('/profile','userController@profile')->name('my.profile');
-Route::get('/profile','userController@application')->name('my.application');
+Route::get('/application','userController@application')->name('my.application');
 
 // SELEKSI
 // Seleksi Section
@@ -69,7 +69,9 @@ Route::get('/profile','userController@application')->name('my.application');
 
   // Hasil Seleksi
   Route::get('/admin/seleksi/score/result','admin\seleksiController@score_result')->name('seleksi.result');
-
   Route::post('/admin/seleksi/score/stage-change','admin\seleksiController@change_stage')->name('stage.status.save');
+
+  // Stock
+  Route::get('/admin/stock','stockController@index')->name('stock.index');
 
 });

@@ -14,7 +14,9 @@ class userController extends Controller
 {
     public function profile()
     {
-      # code...
+      $user = Auth::user();
+      $data = array('user' =>$user , );
+      return view('my-profile')->with($data);
     }
 
     public function application()

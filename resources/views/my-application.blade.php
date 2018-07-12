@@ -11,11 +11,12 @@
     </div>
   </div>
   <div class="">
+
     @if ($applies->count() !== 0)
-    <div class="row justify-content-center background-grey-gradient" style="padding-top:20px">
+    <div class="row justify-content-center" style="padding-top:20px">
         @foreach ($applies as $apply)
           <div class="col-md-10" style="">
-            <div class="card-wrapper-job">
+            <div class="card-wrapper-job" style="background:#ededed">
               <span class="card-job-title">
                 {{strtoupper($apply->job->job_title)}}
               </span>
@@ -39,7 +40,6 @@
       <h3>Apply Job yang tersedia <a href="{{route('home')}}">di sini</a></h3>
     </div>
   @endif
-
 
   </div>
 </div>

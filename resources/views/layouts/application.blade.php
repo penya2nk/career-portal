@@ -74,7 +74,7 @@
                   </a>
                 @else
                   <div class="user-area dropdown float-right">
-                        <a href="#" class="dropbtn">
+                        <a href="{{route('my.profile')}}" class="dropbtn">
                           @if (Auth::user()->photo_profile !== NULL)
                             <img class="user-avatar rounded-circle" src="{{Auth::user()->photo_profile}}" alt="User Avatar">
                           @else
@@ -89,7 +89,7 @@
                                 <a class="nav-link" href="#"><i class="fa fa- user"></i>Notifications <span class="count">13</span></a>
 
                                 <a class="nav-link" href="#"><i class="fa fa -cog"></i>Settings</a> --}}
-                                <a href="#">My Resume</a>
+                                <a href="{{route('my.profile')}}">My Resume</a>
                                 <a href="{{route('my.application')}}">My Application</a>
                                 <a class="dropdown-item" href="{{ route('logout') }}"
                                    onclick="event.preventDefault();
@@ -117,7 +117,7 @@
         <div class="row">
             <div class="menumobile-content">
               <div class="col-xs-6">
-              <a href="#" class="btn btn-warning btn-lg btn-block">
+              <a href="{{route('home')}}" class="btn btn-warning btn-lg btn-block">
                 <span class="fa fa-briefcase"></span>
                 Available Jobs
               </a>

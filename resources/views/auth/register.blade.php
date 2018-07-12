@@ -12,7 +12,8 @@
 
 
 <div class="container-fluid">
-  <form class="" action="{{ route('register') }}" method="post">
+
+  <form class="" action="{{ route('register') }}" method="post" enctype="multipart/form-data">
     {{ csrf_field() }}
     <div class="row" style="padding:50px">
       <div class="col-md-6">
@@ -63,7 +64,7 @@
 
         <div class="form-group">
           <label for=""><b>Gender</b></label>
-          <select class="form-control" name="gender">
+          <select class="form-control" name="gender" required>
             <option value="L">Male</option>
             <option value="P">Female</option>
           </select>
@@ -71,7 +72,7 @@
 
         <div class="form-group">
           <label for=""><b>Marital Status</b></label>
-          <select class="form-control" name="marital_status">
+          <select class="form-control" name="marital_status" required>
             <option value="Single">Single</option>
             <option value="Married">Married</option>
           </select>
@@ -85,15 +86,15 @@
       <div class="col-md-6">
         <div class="form-group">
           <label for=""><b>Profile Picture</b></label>
-          <input type="file" class="form-control" accept=".jpg" name="profpic" value="">
+          <input type="file" class="form-control" accept=".jpg" name="profpic" value="" required>
         </div>
         <div class="form-group">
           <label for=""><b>Resume / CV</b></label>
-          <input type="file" class="form-control" accept=".pdf" name="resume" value="">
+          <input type="file" class="form-control" accept=".pdf" name="resume" value="" required>
         </div>
         <div class="form-group">
           <label for=""><b>Last Education</b></label>
-          <select class="form-control" name="last_education">
+          <select class="form-control" name="last_education" required>
             <option value="SMA">SMA</option>
             <option value="D1">D1</option>
             <option value="D2">D2</option>
@@ -103,7 +104,7 @@
           </select>
         </div>
         <div class="form-group">
-          <input type="text" class="form-control" id="" name="institution" placeholder="University">
+          <input type="text" class="form-control" id="" name="institution" placeholder="School/University">
         </div>
         <div class="form-group">
           <input type="text" class="form-control" id="" placeholder="Year">
