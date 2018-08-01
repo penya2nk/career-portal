@@ -90,9 +90,9 @@
 @if (session()->has('status'))
 <script type="text/javascript">
     swal({
-                  title:'Gagal!',
+                  title:'Success!',
                   text:'{{session()->get('status')}}',
-                  type:'error'
+                  type:'success'
                 },
               )
 

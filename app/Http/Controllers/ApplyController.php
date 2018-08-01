@@ -26,7 +26,7 @@ class ApplyController extends Controller
       $verification = $this->check_if_exist($jobs->id,$user->id);
 
       if ($verification == true) {
-        Session::flash('status', 'Kamu sudah apply untuk pekerjaan ini, kamu tidak bisa apply lebih dari satu kali');
+        Session::flash('status', 'Kamu sudah apply untuk pekerjaan ini');
         return redirect()->route('job.desc',['id'=>$id]);
       }
 
@@ -45,7 +45,7 @@ class ApplyController extends Controller
       $verification = $this->check_if_exist($job->id,$user->id);
 
       if ($verification == true) {
-        Session::flash('status', 'Kamu sudah apply untuk pekerjaan ini, kamu tidak bisa apply lebih dari satu kali');
+        Session::flash('status', 'Kamu sudah apply untuk pekerjaan ini');
         return redirect()->route('job.desc.apply',['id'=>$id]);
       }
 

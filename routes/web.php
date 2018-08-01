@@ -41,6 +41,8 @@ Route::post('/job/{id}/apply', 'ApplyController@post_apply')->name('job.desc.pos
 
 Route::get('/profile','userController@profile')->name('my.profile');
 Route::get('/application','userController@application')->name('my.application');
+Route::get('/profile/edit', 'userController@edit_profile')->name('profile.edit');
+Route::post('/profile/edit','userController@update_profile')->name('profile.update');
 
 // SELEKSI
 // Seleksi Section

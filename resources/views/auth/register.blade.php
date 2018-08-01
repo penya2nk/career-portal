@@ -13,41 +13,44 @@
 
 <div class="container-fluid">
 
-  <form class="" action="{{ route('register') }}" method="post" enctype="multipart/form-data">
+  <form class="" @if(!isset($status)) action="{{ route('register') }}" @else action="{{ route('profile.update') }}" @endif method="post" enctype="multipart/form-data">
     {{ csrf_field() }}
     <div class="row" style="padding:50px">
       <div class="col-md-6">
         <div class="form-group">
           <label for=""><b>Personal Data</b></label>
-          <input id="name" type="text" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" name="name" value="{{ old('name') }}" placeholder="Full Name" required autofocus>
+          <input id="name" type="text" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" name="name" @if(!isset($status)) value="{{ old('name') }}" @else value="{{$user->name}}" @endif placeholder="Full Name" required autofocus>
           @if ($errors->has('name'))
               <span class="invalid-feedback">
                   <strong>{{ $errors->first('name') }}</strong>
               </span>
           @endif
         </div>
-        <div class="form-group">
-          <input id="email" type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" placeholder="E-mail" name="email" value="{{ old('email') }}" required>
-          @if ($errors->has('email'))
+
+        @if (!isset($status))
+          <div class="form-group">
+            <input id="email" type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" placeholder="E-mail" name="email" value="{{ old('email') }}" required>
+            @if ($errors->has('email'))
               <span class="invalid-feedback">
-                  <strong>{{ $errors->first('email') }}</strong>
+                <strong>{{ $errors->first('email') }}</strong>
               </span>
-          @endif
-        </div>
-        <div class="form-group">
-          <input id="password" type="password" placeholder="Password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" required>
-          @if ($errors->has('password'))
+            @endif
+          </div>
+          <div class="form-group">
+            <input id="password" type="password" placeholder="Password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" required>
+            @if ($errors->has('password'))
               <span class="invalid-feedback">
-                  <strong>{{ $errors->first('password') }}</strong>
+                <strong>{{ $errors->first('password') }}</strong>
               </span>
-          @endif
-        </div>
-        <div class="form-group">
-          <input id="password-confirm" placeholder="Confirm Password" type="password" class="form-control" name="password_confirmation" required>
-        </div>
+            @endif
+          </div>
+          <div class="form-group">
+            <input id="password-confirm" placeholder="Confirm Password" type="password" class="form-control" name="password_confirmation" required>
+          </div>
+        @endif
 
         <div class="form-group">
-          <input type="text" name="born_date" id="datetimepicker5" data-toggle="datetimepicker" data-target="#datetimepicker5" class="form-control" id="" placeholder="Born Date">
+          <input type="text" name="born_date" id="datetimepicker5" data-toggle="datetimepicker" data-target="#datetimepicker5" @if(isset($status)) value="{{$user->born_date}}" @endif class="form-control" id="" placeholder="Born Date">
         </div>
         <script type="text/javascript">
             $(function () {
@@ -59,77 +62,84 @@
         </script>
 
         <div class="form-group">
-          <input type="text" name="phone" class="form-control handphone" id="" placeholder="Phone Number">
+          <input type="text" name="phone" class="form-control handphone" id="" @if(isset($status)) value="{{$user->phone}}" @endif placeholder="Phone Number">
         </div>
 
         <div class="form-group">
           <label for=""><b>Gender</b></label>
           <select class="form-control" name="gender" required>
-            <option value="L">Male</option>
-            <option value="P">Female</option>
+            <option @if(isset($status) && $user->gender == "L") selected @endif value="L">Male</option>
+            <option @if(isset($status) && $user->gender == "P") selected @endif value="P">Female</option>
           </select>
         </div>
 
         <div class="form-group">
           <label for=""><b>Marital Status</b></label>
           <select class="form-control" name="marital_status" required>
-            <option value="Single">Single</option>
-            <option value="Married">Married</option>
+            <option @if(isset($status) && $user->marital_status == "Single") selected @endif value="Single">Single</option>
+            <option @if(isset($status) && $user->marital_status == "Married") selected @endif value="Married">Married</option>
           </select>
         </div>
 
         <div class="form-group">
-          <textarea name="address" placeholder="Address" class="form-control"  rows="8" cols="80"></textarea>
+          <textarea name="address" placeholder="Address" class="form-control"  rows="8" cols="80">@if(isset($status)) {{$user->address}}" @endif</textarea>
         </div>
 
       </div>
       <div class="col-md-6">
         <div class="form-group">
           <label for=""><b>Profile Picture</b></label>
-          <input type="file" class="form-control" accept=".jpg" name="profpic" value="" required>
+          <input type="file" class="form-control" accept=".jpg" name="profpic" value="" @if(!isset($status)) required @endif>
         </div>
         <div class="form-group">
           <label for=""><b>Resume / CV</b></label>
-          <input type="file" class="form-control" accept=".pdf" name="resume" value="" required>
+          <input type="file" class="form-control" accept=".pdf" name="resume" value="" @if(!isset($status)) required @endif>
         </div>
+        <div class="form-group">
+          <label for=""><b>Tell about your self</b> </label>
+          <textarea name="about" placeholder="about your self" class="form-control"  rows="8" cols="80">@if(isset($status)) {{$user->about}}" @endif</textarea>
+        </div>
+
+
         <div class="form-group">
           <label for=""><b>Last Education</b></label>
           <select class="form-control" name="last_education" required>
-            <option value="SMA">SMA</option>
-            <option value="D1">D1</option>
-            <option value="D2">D2</option>
-            <option value="D3">D3</option>
-            <option value="S1">S1</option>
-            <option value="S2">S2</option>
+            <option @if(isset($status) && $user->marital_status == "SMA") selected @endif value="SMA">SMA</option>
+            <option @if(isset($status) && $user->marital_status == "D1") selected @endif value="D1">D1</option>
+            <option @if(isset($status) && $user->marital_status == "D2") selected @endif value="D2">D2</option>
+            <option @if(isset($status) && $user->marital_status == "D3") selected @endif value="D3">D3</option>
+            <option @if(isset($status) && $user->marital_status == "S1") selected @endif value="S1">S1</option>
+            <option @if(isset($status) && $user->marital_status == "S2") selected @endif value="S2">S2</option>
           </select>
         </div>
         <div class="form-group">
-          <input type="text" class="form-control" id="" name="institution" placeholder="School/University">
+          <input type="text" class="form-control" id="" @if(isset($status)) value="{{$user->institution}}" @endif name="institution" placeholder="School/University">
         </div>
         <div class="form-group">
-          <input type="text" class="form-control" id="" placeholder="Year">
+          <input type="text" name="year" @if(isset($status)) value="{{$user->year}}" @endif class="form-control" id="" placeholder="Year">
         </div>
         <div class="form-group">
-          <input type="text" class="form-control" id="" name="major" placeholder="Major">
+          <input type="text" class="form-control" id="" @if(isset($status)) value="{{$user->major}}" @endif name="major" placeholder="Major">
         </div>
         <div class="form-group">
-          <input type="text" class="form-control" id="" name="graduation_year" placeholder="Graduation Year">
+          <input type="text" class="form-control" id="" @if(isset($status)) value="{{$user->graduation_year}}" @endif name="graduation_year" placeholder="Graduation Year">
         </div>
 
         <div class="form-inline">
           <div class="form-group">
             <label for="">GPA </label>
-            <input type="number" min="0" step="0.01" name="gpa" class="form-control" id="" placeholder="">
+            <input type="number" min="0" step="0.01" name="gpa" @if(isset($status)) value="{{$user->gpa}}" @endif class="form-control" id="" placeholder="">
           </div>
           <div class="form-group">
             <label for="">From </label>
             <select class="form-control" name="gpa-max">
-              <option value="4">4</option>
-              <option value="5">5</option>
+              <option @if(isset($status) && $user->gpa_max == "4") selected @endif value="4">4</option>
+              <option @if(isset($status) && $user->gpa_max == "5") selected @endif value="5">5</option>
 
             </select>
           </div>
         </div>
+
 
         <div class="text-right" style="margin-top:50px">
           <button type="submit" class="btn btn-lg btn-warning">Submit</button>

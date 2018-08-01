@@ -17,16 +17,37 @@
         @foreach ($applies as $apply)
           <div class="col-md-10" style="">
             <div class="card-wrapper-job" style="background:#ededed">
-              <span class="card-job-title">
-                {{strtoupper($apply->job->job_title)}}
-              </span>
-              <div class="job-time-criteria">
-                <span class="fa fa-briefcase"></span>
-                {{$apply->job->time_type}}
-              </div>
-              <div class="job-time-criteria">
-                <span class="fa fa-map-marker"></span>
-                {{$apply->job->work_location}}
+              <div class="row">
+                <div class="col-md-3">
+                  <span class="card-job-title">
+                    {{strtoupper($apply->job->job_title)}}
+                  </span>
+                  <div class="job-time-criteria">
+                    <span class="fa fa-briefcase"></span>
+                    {{$apply->job->time_type}}
+                  </div>
+                  <div class="job-time-criteria">
+                    <span class="fa fa-map-marker"></span>
+                    {{$apply->job->work_location}}
+                  </div>
+
+                </div>
+                <div class="col-md-7">
+                  <div class="step-progress-wrapper">
+
+                      <ul class="progressbar">
+                        @foreach (App\models\stage::whereIn('id', unserialize($apply->job->stages_list))->get() as $stage)
+                          <li style="width:20%" class="active">{{$stage->stage_name}}</li>
+                        @endforeach
+                        {{-- <li style="width:20%" class="active">Step 1</li>
+                        <li style="width:20%" class="">Step 2</li>
+                        <li style="width:20%" class="">Step 3</li>
+                        <li style="width:20%" class="active">Step 4</li>
+                        <li style="width:20%" class="">Step 5</li> --}}
+                      </ul>
+
+                  </div>
+                </div>
               </div>
               <a href="{{route('job.desc',['id'=>$apply->job->id])}}" class="btn btn-warning">Detail</a>
             </div>

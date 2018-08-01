@@ -64,7 +64,7 @@
               </script>
 
               <div class="regular-header">
-                <a href="#" class="btn btn-warning">
+                <a href="{{route('home')}}" class="btn btn-warning">
                   <span class="fa fa-briefcase"></span>
                   Available Jobs
                 </a>

@@ -21,6 +21,67 @@ input[type="color"]:focus,
   outline: 0 none;
 }
 
+.photo-profile-wrapper{
+  overflow: hidden;
+}
+
+.step-progress-wrapper{
+  max-width: 700px;
+  position: absolute;
+  z-index: 1;
+  overflow:auto;
+  top:20px
+}
+
+.progressbar{
+  counter-reset: step;
+  width: 700px
+}
+
+.progressbar li{
+  float: left;
+  position: relative;
+  text-align: center;
+  list-style: none;
+}
+
+.progressbar li:before{
+  content:counter(step);
+  counter-increment: step;
+  display: block;
+  width:70px;
+  height:70px;
+  border: 2px solid #bebebe;
+  margin: 0 auto 10px auto;
+  border-radius: 50%;
+  line-height: 64px;
+  background:white;
+  color: #bebebe;
+  text-align: center;
+  font-size:18pt;
+}
+
+.progressbar li:after{
+  content: '';
+  position: absolute;
+  width:100%;
+  height: 3px;
+  background: #979797;
+  top: 35px;
+  left: -50%;
+  z-index: -1;
+}
+
+.progressbar li.active:after{
+ background: #3aac5d;
+}
+.progressbar li.active:before {
+border-color: #3aac5d;
+background: #3aac5d;
+color: white
+}
+
+
 .job-desc{
   margin-top:-146px;
   background: white;

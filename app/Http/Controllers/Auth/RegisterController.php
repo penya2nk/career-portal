@@ -109,6 +109,7 @@ class RegisterController extends Controller
       $user->graduation_year = $data['graduation_year'];
       $user->gpa = $data['gpa'];
       $user->gpa_max = $data['gpa-max'];
+      $user->about = $data['about'];
 
       if ($data['profpic'] !== NULL) {
         // Image Processing
