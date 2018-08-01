@@ -70,9 +70,9 @@
                         <a href="/admin"> <i class="menu-icon fa fa-dashboard"></i>Dashboard </a>
                     </li>
 
-                    <li class="{{($routename == 'add_admin_index') ? 'active' : ''}}">
+                    {{-- <li class="{{($routename == 'add_admin_index') ? 'active' : ''}}">
                         <a href="{{route('admin.division.index')}}"> <i class="menu-icon fa fa-suitcase"></i>Division</a>
-                    </li>
+                    </li> --}}
 
                     <li class="{{($routename == 'add_admin_index') ? 'active' : ''}}">
                         <a href="{{route('admin.jobvacancy.index')}}"> <i class="menu-icon fa fa-suitcase"></i>Job Vacancy</a>
@@ -90,9 +90,9 @@
                         <a href="{{route('parameter.index')}}"> <i class="menu-icon fa fa-child"></i>Parameter Penilaian</a>
                     </li>
 
-                    <li class="{{($routename == 'seleksi.index') ? 'active' : ''}}">
+                    {{-- <li class="{{($routename == 'seleksi.index') ? 'active' : ''}}">
                       <a href="{{route('seleksi.index')}}"> <i class="menu-icon fa fa-hand-lizard-o"></i>Seleksi</a>
-                    </li>
+                    </li> --}}
                     {{-- <h3 class="menu-title">UI elements</h3><!-- /.menu-title -->
                     <li class="menu-item-has-children dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-laptop"></i>Components</a>

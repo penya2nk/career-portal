@@ -75,8 +75,8 @@
                 @else
                   <div class="user-area dropdown float-right">
                         <a href="{{route('my.profile')}}" class="dropbtn">
-                          @if (Auth::user()->photo_profile !== NULL)
-                            <img class="user-avatar rounded-circle" src="{{Auth::user()->photo_profile}}" alt="User Avatar">
+                          @if (Auth::user()->profpic !== NULL)
+                            <img class="user-avatar rounded-circle" src="{{Auth::user()->profpic}}" alt="User Avatar">
                           @else
                             <img class="user-avatar rounded-circle" src="{{asset('images/male-blank.jpg')}}" alt="User Avatar">
                           @endif

@@ -12,11 +12,32 @@ use Carbon\Carbon;
 use App\models\parameter;
 use App\models\stage;
 use App\models\user_parameter;
+use App\models\job;
+
 
 
 
 class seleksiController extends Controller
 {
+    public function applier($id)
+    {
+      $job = job::find($id);
+      $data = array('job' =>$job , );
+      return view('admin.applier')->with($data);
+    }
+
+    public function candidate_preview($id)
+    {
+      $candidate = user::find($id);
+
+      $data = array('user' => $candidate, );
+
+      return view('admin.candidate')->with($data);
+    }
+
+
+
+
     public function index()
     {
       $users = User::all();
@@ -337,9 +358,7 @@ class seleksiController extends Controller
 
       $user->parameters()->updateExistingPivot($parameter_id, ['lock' => 1]);
 
-      return redirect('/admin/profile/view/'.$user_id.'?seleksi=true');
-
-
+      return redirect('/admin/candidate/'.$user_id.'/preview?seleksi=true')->with('saved','Nilai '.$parameter->parameter_name.' Berhasil Dikunci');
     }
 
     public function save_score_each(Request $request)
@@ -365,7 +384,7 @@ class seleksiController extends Controller
         $user->parameters()->attach($id_parameter, ['score' => $score, 'user_submit'=>Auth::user()->name,'comment'=>$comment]);
       }
 
-      return redirect('/admin/profile/view/'.$user_id.'?seleksi=true')->with('saved','Nilai '.$parameter->parameter_name.' Berhasil Disimpan');
+      return redirect('/admin/candidate/'.$user_id.'/preview?seleksi=true')->with('saved','Nilai '.$parameter->parameter_name.' Berhasil Disimpan');
 
     }
 
@@ -424,5 +443,7 @@ class seleksiController extends Controller
 
       return response()->json($data);
     }
+
+
 
 }

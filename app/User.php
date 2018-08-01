@@ -29,4 +29,16 @@ class User extends Authenticatable
 
     protected $dates = ['born_date'];
     protected $year = [ 'year', 'graduation_year'];
+
+    public function parameters()
+    {
+      return $this->belongsToMany('App\models\parameter','user_parameter')
+        ->withPivot('score','lock','comment','user_submit')
+        ->withTimestamps();
+    }
+
+    public function stages()
+    {
+        return $this->belongsTo('App\models\stage', 'stage_id');
+    }
 }

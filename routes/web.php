@@ -36,6 +36,10 @@ Route::post('/admin/job-vacancy/{id}/edit', 'AdminController@jobvacancy_edit')->
 Route::post('/admin/job-vacancy/{id}/save', 'AdminController@jobvacancy_edit_post')->name('admin.jobvacancy.postedit');
 Route::post('/admin/job-vacancy/{id}/delete', 'AdminController@jobvacancy_delete')->name('admin.jobvacancy.delete');
 
+Route::get('/admin/job-vacancy/{id}/applier', 'admin\seleksiController@applier')->name('admin.job.applier');
+
+Route::get('/admin/candidate/{id}/preview', 'admin\seleksiController@candidate_preview')->name('admin.candidate.preview');
+
 Route::get('/job/{id}/apply', 'ApplyController@apply')->name('job.desc.apply');
 Route::post('/job/{id}/apply', 'ApplyController@post_apply')->name('job.desc.post');
 

@@ -24,7 +24,7 @@ Job Vacancy
           <div class="col-md-4">
               <aside class="profile-nav alt">
                   <section class="card">
-                    <a href="#">
+                    <a href="{{route('admin.job.applier',['id'=>$job->id])}}">
                       <div class="card-header user-header alt bg-dark">
                         <div class="media">
                           {{-- <a href="#">
@@ -32,7 +32,7 @@ Job Vacancy
                         </a> --}}
                         <div class="media-body">
                           <span class="badge badge-secondary" title="{{$job->company->name_company}}">{{$job->company->comt_data}}</span>
-                          <h2 class="text-light display-6">{{$job->job_title}}</h2>
+                          <h4 class="text-light display-6">{{$job->job_title}}</h4>
                           <p>{{$job->time_type}}</p>
                           <div class="button-edit">
                             <form class="" action="{{route('admin.jobvacancy.edit',['id'=>$job->id])}}" method="post">
@@ -56,12 +56,12 @@ Job Vacancy
                           <li class="list-group-item">
                               <a href="#"> <i class="fa fa-envelope-o"></i> Applier <span class="badge badge-primary pull-right">0</span></a>
                           </li>
-                          <li class="list-group-item">
+                          {{-- <li class="list-group-item">
                               <a href="#"> <i class="fa fa-tasks"></i> To Director <span class="badge badge-danger pull-right">0</span></a>
                           </li>
                           <li class="list-group-item">
                               <a href="#"> <i class="fa fa-bell-o"></i> Candidate <span class="badge badge-success pull-right">0</span></a>
-                          </li>
+                          </li> --}}
                           <li class="list-group-item text-center">
                               <span class="badge {{$job->published == 1 ? 'badge-success' : 'badge-secondary'}}">{{$job->published == 1 ? 'Published' : 'Draft'}}</span>
                           </li>
