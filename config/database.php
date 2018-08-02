@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'default' => env('DB_CONNECTION', 'mysql'),
+    'default' => env('DB_CONNECTION', 'heroku'),
 
     /*
     |--------------------------------------------------------------------------
@@ -53,7 +53,7 @@ return [
             'strict' => true,
             'engine' => null,
         ],
-        
+
         'mysql2' => [
             'driver' => 'mysql',
             'host' => env('DB_HOST2', '127.0.0.1'),
@@ -94,6 +94,17 @@ return [
             'password' => env('DB_PASSWORD', ''),
             'charset' => 'utf8',
             'prefix' => '',
+        ],
+
+        'heroku' => [
+            'driver'   => 'mysql',
+            'host'     => parse_url(getenv("JAWSDB_URL"))["host"],
+            'database' => substr(parse_url(getenv("JAWSDB_URL"))["path"], 1),
+            'username' => parse_url(getenv("JAWSDB_URL"))["user"],
+            'password' => parse_url(getenv("JAWSDB_URL"))["pass"],
+            'charset' => 'utf8mb4',
+            'prefix'   => '',
+            'schema'   => 'public',
         ],
 
     ],
