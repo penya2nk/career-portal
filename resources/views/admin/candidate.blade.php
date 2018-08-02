@@ -55,8 +55,8 @@
     <div class="row justify-content-center">
       <div class="col-md-2">
         @if ($user->profpic !== NULL)
-          <div class="photo-profile-wrapper rounded-circle">
-            <img class="user-avatar " style="height: 162px;" src="{{$user->profpic}}" alt="User Avatar">
+          <div class="image-profpic-2">
+            <img class="profpic-2" style="height: 162px;" src="{{$user->profpic}}" alt="User Avatar">
           </div>
         @else
           <img class="user-avatar rounded-circle" style="height: 162px;" src="{{asset('images/male-blank.jpg')}}" alt="User Avatar">
@@ -123,6 +123,33 @@
         <div class="row">
           <div class="col-md-12">
             <p>{{$user->about}}</p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            @if (isset($_GET['seleksi']) && isset($_GET['job']))
+              @php
+              $app = App\models\applier::where([['user_id', $_GET['seleksi']],['job_id', $_GET['job']]])->first();
+              $skills = unserialize($app->skill);
+              @endphp
+              <table class="table">
+                <tbody>
+                  @foreach ($skills as $key => $skill)
+                    <tr>
+                      <td>{{$key}}</td>
+                      <td style="color:orange">
+                        @for ($i = 0; $i<=$skill; $i++)
+                          <i class="fa fa-star" aria-hidden="true"></i>
+                        @endfor
+                      </td>
+                    </tr>
+                  @endforeach
+                </tbody>
+              </table>
+
+
+
+            @endif
           </div>
         </div>
       </div>

@@ -24,7 +24,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $jobs = job::all();
+        $jobs = job::where('published','1')->get();
         $data = array('jobs' =>$jobs,);
 
         return view('home')->with($data);

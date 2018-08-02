@@ -27,7 +27,7 @@ Applier {{$job->job_title}}
             <th>Nama</th>
             <th>E-mail</th>
             <th>IPK</th>
-            <th>Jurusan</th>
+            <th>Kampus</th>
             <th>Tahapan</th>
             {{-- <th>CV</th> --}}
             <th>Action</th>
@@ -49,7 +49,7 @@ Applier {{$job->job_title}}
                 <a href="" target="_blank" class="btn btn-sm btn-warning">Download</a>
               </td> --}}
               <td>
-                <a href="{{route('admin.candidate.preview',['id'=>$applier->user->id,'seleksi'=>true])}}" class="btn btn-sm btn-primary">Preview</a>
+                <a href="{{route('admin.candidate.preview',['id'=>$applier->user->id,'seleksi'=>true,'job'=>$job->id])}}" class="btn btn-sm btn-primary">Preview</a>
               </td>
             </tr>
           @endforeach
