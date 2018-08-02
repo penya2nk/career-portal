@@ -7,11 +7,11 @@
       <video loop="" muted="" autoplay="" poster="" class="banner-video__video" src="https://ecs7.tokopedia.net/assets/media/careers/video-banner-small.mp4"></video>
     </div> --}}
     <div class="caption-job-header">
-      <h1>Available Jobs</h1>
+      <h1>Available Jobs <br> {{$jobs->count()}}</h1>
     </div>
   </div>
-  <div class="">
-    <div class="row justify-content-center background-grey-gradient" style="padding-top:20px">
+  <div class="container-fluid background-grey-gradient" style="padding-bottom:80px">
+    <div class="row justify-content-center " style="padding-top:20px">
       @foreach ($jobs as $job)
         <div class="col-md-4" style="">
           <div class="card-wrapper-job">

@@ -15,8 +15,8 @@
           {{-- title Head --}}
           <div class="row">
             <div class="col-md-12">
-              <span class="badge badge-secondary company-blst">Agri Lestari Indonesia</span>
-              <h1 style="margin-top: 20px;"><b>Product Analyst</b></h1>
+              <span class="badge badge-secondary company-blst">{{$job->company->name_company}}</span>
+              <h1 style="margin-top: 20px;"><b>{{$job->job_title}}</b></h1>
             </div>
           </div>
           {{-- Sub Judul  --}}

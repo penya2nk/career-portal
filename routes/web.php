@@ -19,6 +19,7 @@ Route::get('/job/{id}', 'HomeController@job')->name('job.desc');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/m2d7ggtyxkz6stkevurjwujirxqdq7lj/sdmblstuser');
 // Route::get('/registrations', '');
 
 

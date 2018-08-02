@@ -21,8 +21,8 @@
         <div class="row justify-content-center" style="margin-top:-88px">
           <div class="col-md-2">
             @if (Auth::user()->profpic !== NULL)
-              <div class="photo-profile-wrapper rounded-circle">
-                <img class="user-avatar " style="height: 162px;" src="{{Auth::user()->profpic}}" alt="User Avatar">
+              <div class="image-profpic-2" >
+                <img class="profpic-2 " src="{{Auth::user()->profpic}}" alt="User Avatar">
               </div>
             @else
               <img class="user-avatar rounded-circle" style="height: 162px;" src="{{asset('images/male-blank.jpg')}}" alt="User Avatar">

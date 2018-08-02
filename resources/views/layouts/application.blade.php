@@ -74,13 +74,15 @@
                   </a>
                 @else
                   <div class="user-area dropdown float-right">
-                        <a href="{{route('my.profile')}}" class="dropbtn">
-                          @if (Auth::user()->profpic !== NULL)
-                            <img class="user-avatar rounded-circle" src="{{Auth::user()->profpic}}" alt="User Avatar">
-                          @else
-                            <img class="user-avatar rounded-circle" src="{{asset('images/male-blank.jpg')}}" alt="User Avatar">
-                          @endif
-                        </a>
+                    <div class="image-profpic">
+                      <a href="{{route('my.profile')}}" class="dropbtn">
+                        @if (Auth::user()->profpic !== NULL)
+                          <img class="profpic" src="{{Auth::user()->profpic}}" alt="User Avatar">
+                        @else
+                          <img class="user-avatar rounded-circle" src="{{asset('images/male-blank.jpg')}}" alt="User Avatar">
+                        @endif
+                      </a>
+                    </div>
                         <h6>{{Auth::user()->name}}</h6>
 
                         <div class="dropdown-content">

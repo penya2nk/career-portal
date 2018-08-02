@@ -21,6 +21,53 @@ input[type="color"]:focus,
   outline: 0 none;
 }
 
+img.profpic {
+
+  width: 101%;
+    overflow: hidden;
+    display: block;
+    height: auto;
+    /*margin-top: -8px;*/
+}
+
+.image-profpic{
+  /* float: left; */
+  margin:  auto;
+  background: white;
+  width: 47px;
+  height: 47px;
+  float:right;
+  /* position: relative; */
+  /* border: 2px solid white; */
+  /* -webkit-border-radius: 50px; */
+  -moz-border-radius: 50px;
+  border-radius: 50px;
+  overflow:hidden;
+}
+
+img.profpic-2 {
+
+  width: 101%;
+    overflow: hidden;
+    display: block;
+    height: auto;
+    /*margin-top: -8px;*/
+}
+
+.image-profpic-2{
+  /* float: left; */
+  margin:  auto;
+  background: white;
+  width: 147px;
+  height: 147px;
+  /* position: relative; */
+  /* border: 2px solid white; */
+  /* -webkit-border-radius: 50px; */
+  -moz-border-radius: 50%;
+  border-radius: 50%;
+  overflow:hidden;
+}
+
 .photo-profile-wrapper{
   overflow: hidden;
 }
