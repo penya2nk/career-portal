@@ -8,9 +8,9 @@
       background-size: cover;
       background-position: center;
     ">
-      {{-- <div class="banner-video-wrapper">
-        <video loop="" muted="" autoplay="" poster="" class="banner-video__video" src="https://ecs7.tokopedia.net/assets/media/careers/video-banner-small.mp4"></video>
-      </div> --}}
+      <div class="banner-video-wrapper">
+        <video loop="" muted="" autoplay="" poster="" class="banner-video__video" src="https://res.cloudinary.com/blst/video/upload/v1533287684/video-banner-blst.mp4"></video>
+      </div>
       {{-- <div class="caption-job-header">
         <h1>{{Auth::user()->name}}</h1>
       </div> --}}

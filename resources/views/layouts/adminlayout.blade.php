@@ -66,9 +66,9 @@
 
             <div id="main-menu" class="main-menu collapse navbar-collapse">
                 <ul class="nav navbar-nav">
-                    <li class="{{($routename == 'admin.dashboard') ? 'active' : ''}}">
+                    {{-- <li class="{{($routename == 'admin.dashboard') ? 'active' : ''}}">
                         <a href="/admin"> <i class="menu-icon fa fa-dashboard"></i>Dashboard </a>
-                    </li>
+                    </li> --}}
 
                     {{-- <li class="{{($routename == 'add_admin_index') ? 'active' : ''}}">
                         <a href="{{route('admin.division.index')}}"> <i class="menu-icon fa fa-suitcase"></i>Division</a>
