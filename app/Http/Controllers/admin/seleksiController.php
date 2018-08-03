@@ -13,12 +13,21 @@ use App\models\parameter;
 use App\models\stage;
 use App\models\user_parameter;
 use App\models\job;
+use App\models\applier;
 
 
 
 
 class seleksiController extends Controller
 {
+
+    public function __construct()
+    {
+      $this->middleware('auth');
+      $this->middleware('checkadmin');
+    }
+
+
     public function applier($id)
     {
       $job = job::find($id);
@@ -374,17 +383,30 @@ class seleksiController extends Controller
 
       $user = user::find($user_id);
       $parameter =parameter::find($parameter);
+      $job = job::find($request->job_id);
 
-      $count_exist = $user->parameters()->where('parameter_id', $id_parameter)->first();
+      $count_exist = $user->parameters()->where([['parameter_id', $id_parameter],['job_id', $request->job_id]])->first();
       // dd($count_exist !== NULL);
 
       if ($count_exist !== NULL) {
-        $user->parameters()->updateExistingPivot($id_parameter, ['score' => $score, 'user_submit'=>Auth::user()->name, 'comment'=>$comment]);
+        $user->parameters()->updateExistingPivot($id_parameter,
+        [
+          'score' => $score,
+          'user_submit'=>Auth::user()->name,
+          'comment'=>$comment,
+          'job_id'=>$request->job_id
+        ]);
       }else {
-        $user->parameters()->attach($id_parameter, ['score' => $score, 'user_submit'=>Auth::user()->name,'comment'=>$comment]);
+        $user->parameters()->attach($id_parameter,
+        [
+          'score' => $score,
+          'user_submit'=>Auth::user()->name,
+          'comment'=>$comment,
+          'job_id'=>$request->job_id
+        ]);
       }
 
-      return redirect('/admin/candidate/'.$user_id.'/preview?seleksi=true')->with('saved','Nilai '.$parameter->parameter_name.' Berhasil Disimpan');
+      return redirect()->route('admin.candidate.preview',['id'=>$user->id,'seleksi'=>$user->id,'job'=>$job->id])->with('saved','Nilai '.$parameter->parameter_name.' Berhasil Disimpan');
 
     }
 
@@ -421,12 +443,16 @@ class seleksiController extends Controller
     {
       $user_id = $_REQUEST['user_id'];
       $stage_id = $_REQUEST['stage_id'];
+      $job_id = $_REQUEST['job_id'];
 
-      if (isset($user_id) && isset($stage_id)) {
+      if (isset($user_id) && isset($stage_id) && isset($job_id) ) {
         $user = user::find($user_id);
         $stage = stage::find($stage_id);
-        $user->stage_id = $stage_id;
-        $user->save();
+        $job = job::find($job_id);
+
+        $applier = applier::where([['user_id', $user_id],['job_id', $job_id]])->first();
+        $applier->stage_id = $stage_id;
+        $applier->save();
 
         $data = array(
         'status' => 'success',

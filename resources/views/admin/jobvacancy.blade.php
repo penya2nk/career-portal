@@ -54,7 +54,7 @@ Job Vacancy
 
                       <ul class="list-group list-group-flush">
                           <li class="list-group-item">
-                              <a href="#"> <i class="fa fa-envelope-o"></i> Applier <span class="badge badge-primary pull-right">0</span></a>
+                              <a href="#"> <i class="fa fa-envelope-o"></i> Applier <span class="badge badge-primary pull-right">{{$job->appliers()->count()}}</span></a>
                           </li>
                           {{-- <li class="list-group-item">
                               <a href="#"> <i class="fa fa-tasks"></i> To Director <span class="badge badge-danger pull-right">0</span></a>

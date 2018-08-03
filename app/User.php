@@ -41,4 +41,9 @@ class User extends Authenticatable
     {
         return $this->belongsTo('App\models\stage', 'stage_id');
     }
+
+    public function appliers()
+    {
+      return $this->hasMany('App\models\applier','user_id');
+    }
 }

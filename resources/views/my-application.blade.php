@@ -37,7 +37,11 @@
 
                       <ul class="progressbar">
                         @foreach (App\models\stage::whereIn('id', unserialize($apply->job->stages_list))->get() as $stage)
-                          <li style="width:20%" class="active">{{$stage->stage_name}}</li>
+                          <li style="width:20%"
+                          @if ($apply->stage_id == $stage->id || $apply->stage_id > $stage->id)
+                            class="active"
+                          @endif
+                          >{{$stage->stage_name}}</li>
                         @endforeach
                         {{-- <li style="width:20%" class="active">Step 1</li>
                         <li style="width:20%" class="">Step 2</li>
@@ -64,4 +68,16 @@
 
   </div>
 </div>
+
+@if (session()->has('status'))
+<script type="text/javascript">
+    swal({
+                  title:'Success!',
+                  text:'{{session()->get('status')}}',
+                  type:'success'
+                },
+              )
+
+</script>
+@endif
 @endsection

@@ -125,7 +125,7 @@
             <p>{{$user->about}}</p>
           </div>
         </div>
-        <div class="row">
+        <div class="row" style="margin-bottom:200px">
           <div class="col-md-6">
             @if (isset($_GET['seleksi']) && isset($_GET['job']))
               @php
@@ -146,9 +146,6 @@
                   @endforeach
                 </tbody>
               </table>
-
-
-
             @endif
           </div>
         </div>
@@ -158,7 +155,7 @@
 
   {{-- Komponen Penilaian --}}
 
-  @if (isset($_GET['seleksi']))
+  @if (isset($_GET['seleksi']) && isset($_GET['job']))
     <div class="seleksi-wrapper" >
       <div class="row">
         <div class="col-md-12 text-center">
@@ -168,8 +165,11 @@
         </div>
       </div>
       <div class="collapse" id="collapseExample" style="overflow: scroll !important; max-height: 600px !important;">
+        @php
+          $job = App\models\job::find($_GET['job']);
+        @endphp
 
-        @foreach (App\models\stage::all() as $stage)
+        @foreach (App\models\stage::whereIn('id', unserialize($job->stages_list))->get() as $stage)
           <div class="row">
             <div class="col-md-12">
               <h5>{{$stage->stage_name}}</h5>
@@ -204,7 +204,7 @@
                           @else
                             type="number"
                           @endif
-                          value="{{$user->parameters()->where('parameter_id', $parameter->id)->first() !== NULL ? $user->parameters()->where('parameter_id', $parameter->id)->first()->pivot->score : '0'}}"
+                          value="{{$user->parameters()->where([['parameter_id', $parameter->id],['job_id',$_GET['job']]])->first() !== NULL ? $user->parameters()->where('parameter_id', $parameter->id)->first()->pivot->score : '0'}}"
                           id="" placeholder="">
 
                           <input
@@ -229,6 +229,7 @@
 
                           <input type="hidden" name="parameter_id" value="{{$parameter->id}}">
                           <input type="hidden" name="user_id" value="{{$user->id}}">
+                          <input type="hidden" name="job_id" value="{{$_GET['job']}}">
 
                           @if ($user->parameters()->where('parameter_id', $parameter->id)->first() == NULL || $user->parameters()->where('parameter_id', $parameter->id)->first()->pivot->lock == "0")
                             <button type="submit" class="btn btn-sm btn-block btn-fill btn-success">

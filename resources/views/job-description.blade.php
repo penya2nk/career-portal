@@ -24,10 +24,10 @@
             <div class="col-md-12">
               <div class="detail-job-sub-container">
                 <div class="detail-job-sub" data-toggle="tooltip" data-placement="top" title="Pekerjaan">
-                  <span class="fa fa-briefcase"></span> Function
+                  <span class="fa fa-briefcase"></span> {{$job->time_type}}
                 </div>
                 <div class="detail-job-sub">
-                  <span class="fa fa-map-marker"></span> Location
+                  <span class="fa fa-map-marker"></span> {{$job->work_location}}
                 </div>
               </div>
             </div>

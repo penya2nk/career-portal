@@ -55,7 +55,9 @@ class ApplyController extends Controller
       $add->skill = serialize($request->skill);
       $add->save();
 
-      return redirect()->route('job.desc',['id'=>$id]);
+      Session::flash('status', 'Berhasil apply untuk pekerjaan ini');
+      // return redirect()->route('job.desc',['id'=>$id]);
+      return redirect()->route('my.application');
 
     }
 }

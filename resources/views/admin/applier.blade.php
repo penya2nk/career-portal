@@ -14,49 +14,184 @@ Applier {{$job->job_title}}
 
 
 @section('content')
-  <div class="row">
-    <div class="col-md-12">
-      {{-- <small>
-        Admin :
-      </small>
-      <span class="badge badge-secondary">Halo</span> --}}
-      <table class="table table-striped datatable">
-        <thead>
-          <tr>
-            <th>No</th>
-            <th>Nama</th>
-            <th>E-mail</th>
-            <th>IPK</th>
-            <th>Kampus</th>
-            <th>Tahapan</th>
-            {{-- <th>CV</th> --}}
-            <th>Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          @php
-            $i = 1;
-          @endphp
-          @foreach ($job->appliers()->get() as $applier)
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        {{-- <small>
+          Admin :
+        </small>
+        <span class="badge badge-secondary">Halo</span> --}}
+        <table class="table table-striped datatable">
+          <thead>
             <tr>
-              <td>{{$i++}}</td>
-              <td>{{$applier->user->name}}</td>
-              <td>{{$applier->user->email}}</td>
-              <td>{{$applier->user->gpa}} / {{$applier->user->gpa_max}}</td>
-              <td>{{$applier->user->institution}}</td>
-              <td>Seleksi Berkas</td>
-              {{-- <td>
-                <a href="" target="_blank" class="btn btn-sm btn-warning">Download</a>
-              </td> --}}
-              <td>
-                <a href="{{route('admin.candidate.preview',['id'=>$applier->user->id,'seleksi'=>true,'job'=>$job->id])}}" class="btn btn-sm btn-primary">Preview</a>
-              </td>
+              <th>No</th>
+              <th>Nama</th>
+              <th>E-mail</th>
+              <th>IPK</th>
+              <th>Kampus</th>
+              <th>Tahapan</th>
+              {{-- <th>CV</th> --}}
+              <th>Action</th>
             </tr>
-          @endforeach
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            @php
+              $i = 1;
+            @endphp
+            @foreach ($job->appliers()->get() as $applier)
+              <tr>
+                <td>{{$i++}}</td>
+                <td>{{$applier->user->name}}</td>
+                <td>{{$applier->user->email}}</td>
+                <td>{{$applier->user->gpa}} / {{$applier->user->gpa_max}}</td>
+                <td>{{$applier->user->institution}}</td>
+                <td>{{$applier->stage !== NULL ? $applier->stage->stage_name : 'Submit'}}</td>
+                {{-- <td>
+                  <a href="" target="_blank" class="btn btn-sm btn-warning">Download</a>
+                </td> --}}
+                <td>
+                  <a href="{{route('admin.candidate.preview',['id'=>$applier->user->id,'seleksi'=>$applier->user->id,'job'=>$job->id])}}" class="btn btn-sm btn-primary">Preview</a>
+                </td>
+              </tr>
+            @endforeach
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="row" style="margin-top:80px">
+      <div class="col-md-12">
+        <h4>Nilai Seleksi</h4>
+        <hr>
+        <table class="table table-striped datatable">
+          <thead>
+            <tr>
+              <th rowspan="2">No</th>
+              <th rowspan="2">Nama</th>
+              <th rowspan="2">IPK</th>
+              <th rowspan="2">Kampus</th>
+              <th rowspan="2">Tahapan</th>
+
+              @if (App\models\stage::whereIn('id', unserialize($job->stages_list))->count() !== 0)
+                  @foreach (App\models\stage::whereIn('id', unserialize($job->stages_list))->get() as $stage)
+                    <th colspan="{{$stage->parameters()->count()}}" style="background:orange; color:black">
+                      {{$stage->stage_name}}
+                      <br>
+                      ({{$stage->percentage}} %)
+                    </th>
+                  @endforeach
+              @endif
+
+              {{-- @if (App\models\stage::all()->count() !== 0)
+                  @foreach (App\models\stage::whereIn('id', unserialize($job->stages_list))->get() as $stage)
+                    @php
+                      $skor_maks_stage = [];
+                      $theparam = $stage->parameters()->get();
+                      foreach ($theparam as $key => $param) {
+                        $skor_maks_stage[] = $param->skala * $param->percentage/100;
+                      }
+                    @endphp
+                    <th rowspan="2" style="background:orange; color:black;text-align:center">{{$stage->stage_name}} ({{array_sum($skor_maks_stage)}})</th>
+                  @endforeach
+                @endif --}}
+
+              <th rowspan="2">Masuk Tahap</th>
+            </tr>
+
+            <tr>
+                @if (App\models\parameter::all()->count() !== 0)
+                  @php
+                    $stages = App\models\stage::whereIn('id', unserialize($job->stages_list))->get();
+                    foreach ($stages as $key => $stage) {
+                      foreach ($stage->parameters()->get() as $key => $parameter) {
+                        $par[]= $parameter->id;
+                      }
+                    }
+                  @endphp
+
+
+                  @foreach (App\models\parameter::whereIn('id', $par)->get() as $parameter)
+                    <th style="font-size:9pt;background:grey">
+                      {{$parameter->parameter_name}}
+                      <br>
+                      ({{$parameter->percentage}} %)
+
+                    </th>
+                  @endforeach
+                @endif
+              </tr>
+
+          </thead>
+          <tbody>
+            @php
+              $i = 1;
+            @endphp
+            @foreach ($job->appliers()->get() as $applier)
+              <tr>
+                <td>{{$i++}}</td>
+                <td>{{$applier->user->name}}</td>
+                <td>{{$applier->user->gpa}} / {{$applier->user->gpa_max}}</td>
+                <td>{{$applier->user->institution}}</td>
+                <td>{{$applier->stage !== NULL ? $applier->stage->stage_name : 'Submit'}}</td>
+
+                {{-- Parameter Nilai --}}
+                @if (App\models\parameter::all()->count() !== 0)
+                    @foreach (App\models\parameter::whereIn('id', $par)->get() as $parameter)
+                      @php
+                      // dd($applier->user);
+                        $check = $applier->user->parameters()->where([['parameter_id',$parameter->id],['job_id', $job->id]])->first();
+                        if ($check == NULL) {
+                          $score = '-';
+                          $stamp = '';
+                        }else{
+                          $score = $check->pivot->score;
+                          $stamp = $check->pivot->user_submit.' <br> '.$check->pivot->updated_at;
+                        }
+                      @endphp
+                      {{-- {{$check[]= $parameter->pivot->score}} --}}
+                      <td>{{$score}}<br>
+                        <span style="
+                        background: #bfbfbf;
+                        display: inline-block;
+                        font-size: 5pt;
+                        color: white;
+                        ">{!!$stamp!!}</span>
+                      </td>
+                    @endforeach
+                @endif
+                <td>
+                  @if (App\models\stage::whereIn('id', unserialize($job->stages_list))->count() !== 0)
+                    <input type="hidden" class="user_id" name="" value="{{$applier->user->id}}">
+                    {{-- <small style="display:inline-block;text-align:center;width:100%" class="tahap_name">{{$user->stage_id !== NULL ? $user->stage->stage_name : 'Seleksi Berkas'}}</small> --}}
+                    <select class="seleksi-tahap" name="seleksi_tahap" data-search="Done">
+                      @foreach (App\models\stage::whereIn('id', unserialize($job->stages_list))->get() as $stage)
+                      <option
+                        {{$status_candidate = $applier->where([['user_id', $applier->user->id],['job_id',$job->id]])->first()}}
+                        @if($status_candidate !== NULL)
+                          @if($status_candidate->stage_id == $stage->id)
+                            selected
+                          @endif
+                        @endif
+                        value="{{$stage->id}}" class="form-control">{{$stage->stage_name}}
+                      </option>
+                      @endforeach
+                    </select>
+                  @endif
+                </td>
+
+                {{-- <td>
+                  <a href="" target="_blank" class="btn btn-sm btn-warning">Download</a>
+                </td> --}}
+                {{-- <td>
+                  <a href="{{route('admin.candidate.preview',['id'=>$applier->user->id,'seleksi'=>$applier->user->id,'job'=>$job->id])}}" class="btn btn-sm btn-primary">Preview</a>
+                </td> --}}
+              </tr>
+            @endforeach
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
+
 
 
 
@@ -109,7 +244,7 @@ Applier {{$job->job_title}}
 
   <script>
     $(document).ready(function() {
-        var tablenya = $('.datatable').DataTable({
+        $('.datatable').DataTable({
           "sDom": 'B<"clear">lfrtip',
           buttons: [
           // 'copy',
@@ -123,6 +258,47 @@ Applier {{$job->job_title}}
         });
     });
 
+  </script>
+
+  <script type="text/javascript">
+      @if(App\models\stage::all()->count() !== 0)
+      // Ajax untuk perubahan status seleksi
+      $('.seleksi-tahap').on('change', function() {
+        var user_id = $(this).parent().find('.user_id').val();
+        var stage_id = $(this).parent().find('.seleksi-tahap').val();
+        var job_id = {{$job->id}};
+
+        $.ajax({
+          url: '{{route('stage.status.save')}}',
+          type: 'POST',
+          context:this,
+          dataType: 'json',
+          data: { "_token": "{{ csrf_token() }}",
+                 "user_id": user_id,
+                 "stage_id": stage_id,
+                 "job_id": job_id
+                      },
+        })
+        .done(function(data) {
+
+          if (data.status == "success") {
+            swal({
+                title:'Berhasil Mengubah Status '+data.name+' ke tahap '+data.stage+'',
+                type:'success'
+              },
+            );
+          }
+        })
+        .fail(function() {
+          console.log("error");
+        })
+        .always(function() {
+          console.log("complete");
+        });
+
+
+      });
+      @endif
   </script>
 
 
