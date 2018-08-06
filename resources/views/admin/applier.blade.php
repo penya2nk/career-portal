@@ -17,10 +17,7 @@ Applier {{$job->job_title}}
   <div class="container">
     <div class="row">
       <div class="col-md-12">
-        {{-- <small>
-          Admin :
-        </small>
-        <span class="badge badge-secondary">Halo</span> --}}
+
         <table class="table table-striped datatable">
           <thead>
             <tr>
@@ -39,7 +36,7 @@ Applier {{$job->job_title}}
             @endphp
 
             @if ($job->appliers()->count() !== 0)
-              {{-- @foreach ($job->appliers()->get() as $applier)
+              @foreach ($job->appliers()->get() as $applier)
                 <tr>
                   <td>{{$i++}}</td>
                   <td>{{$applier->user->name}}</td>
@@ -51,7 +48,7 @@ Applier {{$job->job_title}}
                     <a href="{{route('admin.candidate.preview',['id'=>$applier->user->id,'seleksi'=>$applier->user->id,'job'=>$job->id])}}" class="btn btn-sm btn-primary">Preview</a>
                   </td>
                 </tr>
-              @endforeach --}}
+              @endforeach
             @endif
           </tbody>
         </table>
@@ -71,28 +68,14 @@ Applier {{$job->job_title}}
               <th rowspan="2">Tahapan</th>
 
               @if (App\models\stage::whereIn('id', unserialize($job->stages_list))->count() !== 0)
-                  {{-- @foreach (App\models\stage::whereIn('id', unserialize($job->stages_list))->get() as $stage)
+                  @foreach (App\models\stage::whereIn('id', unserialize($job->stages_list))->get() as $stage)
                     <th colspan="{{$stage->parameters()->count()}}" style="background:orange; color:black">
                       {{$stage->stage_name}}
                       <br>
                       ({{$stage->percentage}} %)
                     </th>
-                  @endforeach --}}
-              @endif
-
-              {{-- NOPE --}}
-              {{-- @if (App\models\stage::all()->count() !== 0)
-                  @foreach (App\models\stage::whereIn('id', unserialize($job->stages_list))->get() as $stage)
-                    @php
-                      $skor_maks_stage = [];
-                      $theparam = $stage->parameters()->get();
-                      foreach ($theparam as $key => $param) {
-                        $skor_maks_stage[] = $param->skala * $param->percentage/100;
-                      }
-                    @endphp
-                    <th rowspan="2" style="background:orange; color:black;text-align:center">{{$stage->stage_name}} ({{array_sum($skor_maks_stage)}})</th>
                   @endforeach
-                @endif --}}
+              @endif
 
               <th rowspan="2">Masuk Tahap</th>
             </tr>
@@ -100,28 +83,88 @@ Applier {{$job->job_title}}
             <tr>
                 @if (App\models\parameter::all()->count() !== 0)
                   @php
-                    // $stages = App\models\stage::whereIn('id', unserialize($job->stages_list))->get();
-                    // foreach ($stages as $key => $stage) {
-                    //   foreach ($stage->parameters()->get() as $key => $parameter) {
-                    //     $par[]= $parameter->id;
-                    //   }
-                    // }
+                    $stages = App\models\stage::whereIn('id', unserialize($job->stages_list))->get();
+                    foreach ($stages as $key => $stage) {
+                      foreach ($stage->parameters()->get() as $key => $parameter) {
+                        $par[]= $parameter->id;
+                      }
+                    }
                   @endphp
 
 
-                  {{-- @foreach (App\models\parameter::whereIn('id', $par)->get() as $parameter)
+                  @foreach (App\models\parameter::whereIn('id', $par)->get() as $parameter)
                     <th style="font-size:9pt;background:grey">
                       {{$parameter->parameter_name}}
                       <br>
                       ({{$parameter->percentage}} %)
 
                     </th>
-                  @endforeach --}}
+                  @endforeach
                 @endif
               </tr>
 
           </thead>
-          {{-- Paste Here --}}
+          <tbody>
+            @php
+              $i = 1;
+            @endphp
+            @foreach ($job->appliers()->get() as $applier)
+              <tr>
+                <td>{{$i++}}</td>
+                <td>{{$applier->user->name}}</td>
+                <td>{{$applier->user->gpa}} / {{$applier->user->gpa_max}}</td>
+                <td>{{$applier->user->institution}}</td>
+                <td>{{$applier->stage !== NULL ? $applier->stage->stage_name : 'Submit'}}</td>
+
+
+                @if (App\models\parameter::all()->count() !== 0)
+                    @foreach (App\models\parameter::whereIn('id', $par)->get() as $parameter)
+                      @php
+                      // Parameter Nilai
+                      // dd($applier->user);
+                        $check = $applier->user->parameters()->where([['parameter_id',$parameter->id],['job_id', $job->id]])->first();
+                        if ($check == NULL) {
+                          $score = '-';
+                          $stamp = '';
+                        }else{
+                          $score = $check->pivot->score;
+                          $stamp = $check->pivot->user_submit.' <br> '.$check->pivot->updated_at;
+                        }
+                      @endphp
+
+                      <td>{{$score}}<br>
+                        <span style="
+                        background: #bfbfbf;
+                        display: inline-block;
+                        font-size: 5pt;
+                        color: white;
+                        ">{!!$stamp!!}</span>
+                      </td>
+                    @endforeach
+                @endif
+                <td>
+                  @if (App\models\stage::whereIn('id', unserialize($job->stages_list))->count() !== 0)
+                    <input type="hidden" class="user_id" name="" value="{{$applier->user->id}}">
+                    <select class="seleksi-tahap" name="seleksi_tahap" data-search="Done">
+                      @foreach (App\models\stage::whereIn('id', unserialize($job->stages_list))->get() as $stage)
+                      <option
+                        {{$status_candidate = $applier->where([['user_id', $applier->user->id],['job_id',$job->id]])->first()}}
+                        @if($status_candidate !== NULL)
+                          @if($status_candidate->stage_id == $stage->id)
+                            selected
+                          @endif
+                        @endif
+                        value="{{$stage->id}}" class="form-control">{{$stage->stage_name}}
+                      </option>
+                      @endforeach
+                    </select>
+                  @endif
+                </td>
+
+              
+              </tr>
+            @endforeach
+          </tbody>
         </table>
       </div>
     </div>
