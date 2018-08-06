@@ -54,7 +54,7 @@ Applier {{$job->job_title}}
         </table>
       </div>
     </div>
-    <div class="row" style="margin-top:80px">
+    {{-- <div class="row" style="margin-top:80px">
       <div class="col-md-12">
         <h4>Nilai Seleksi</h4>
         <hr>
@@ -161,13 +161,13 @@ Applier {{$job->job_title}}
                   @endif
                 </td>
 
-              
+
               </tr>
             @endforeach
           </tbody>
         </table>
       </div>
-    </div>
+    </div> --}}
   </div>
 
 
