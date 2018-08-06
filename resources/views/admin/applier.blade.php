@@ -35,7 +35,7 @@ Applier {{$job->job_title}}
               $i = 1;
             @endphp
 
-            {{-- @if ($job->appliers()->count() !== 0)
+            @if ($job->appliers()->count() !== 0)
               @foreach ($job->appliers()->get() as $applier)
                 <tr>
                   <td>{{$i++}}</td>
@@ -49,7 +49,7 @@ Applier {{$job->job_title}}
                   </td>
                 </tr>
               @endforeach
-            @endif --}}
+            @endif
           </tbody>
         </table>
       </div>
@@ -66,9 +66,9 @@ Applier {{$job->job_title}}
               <th rowspan="2">IPK</th>
               <th rowspan="2">Kampus</th>
               <th rowspan="2">Tahapan</th>
-              @php
+              {{-- @php
                 dd(App\models\stage::whereIn('id', unserialize($job->stages_list))->get());
-              @endphp
+              @endphp --}}
 
               {{-- @if (App\models\stage::whereIn('id', unserialize($job->stages_list))->count() !== 0)
                   @foreach (App\models\stage::whereIn('id', unserialize($job->stages_list))->get() as $stage)
