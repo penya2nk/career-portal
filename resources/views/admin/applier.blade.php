@@ -35,7 +35,7 @@ Applier {{$job->job_title}}
               $i = 1;
             @endphp
 
-            @if ($job->appliers()->count() !== 0)
+            {{-- @if ($job->appliers()->count() !== 0)
               @foreach ($job->appliers()->get() as $applier)
                 <tr>
                   <td>{{$i++}}</td>
@@ -49,7 +49,7 @@ Applier {{$job->job_title}}
                   </td>
                 </tr>
               @endforeach
-            @endif
+            @endif --}}
           </tbody>
         </table>
       </div>
@@ -70,7 +70,7 @@ Applier {{$job->job_title}}
                 dd(App\models\stage::whereIn('id', unserialize($job->stages_list))->get());
               @endphp
 
-              @if (App\models\stage::whereIn('id', unserialize($job->stages_list))->count() !== 0)
+              {{-- @if (App\models\stage::whereIn('id', unserialize($job->stages_list))->count() !== 0)
                   @foreach (App\models\stage::whereIn('id', unserialize($job->stages_list))->get() as $stage)
                     <th colspan="{{$stage->parameters()->count()}}" style="background:orange; color:black">
                       {{$stage->stage_name}}
@@ -78,7 +78,7 @@ Applier {{$job->job_title}}
                       ({{$stage->percentage}} %)
                     </th>
                   @endforeach
-              @endif
+              @endif --}}
 
               <th rowspan="2">Masuk Tahap</th>
             </tr>
