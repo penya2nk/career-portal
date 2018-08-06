@@ -66,9 +66,9 @@ Applier {{$job->job_title}}
               <th rowspan="2">IPK</th>
               <th rowspan="2">Kampus</th>
               <th rowspan="2">Tahapan</th>
-              {{-- @php
-                dd(App\models\stage::whereIn('id', unserialize($job->stages_list))->get());
-              @endphp --}}
+              @php
+                dd(App\models\stage::all());
+              @endphp
 
               {{-- @if (App\models\stage::whereIn('id', unserialize($job->stages_list))->count() !== 0)
                   @foreach (App\models\stage::whereIn('id', unserialize($job->stages_list))->get() as $stage)
