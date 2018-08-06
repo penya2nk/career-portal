@@ -30,7 +30,6 @@ Applier {{$job->job_title}}
               <th>IPK</th>
               <th>Kampus</th>
               <th>Tahapan</th>
-              {{-- <th>CV</th> --}}
               <th>Action</th>
             </tr>
           </thead>
@@ -40,7 +39,7 @@ Applier {{$job->job_title}}
             @endphp
 
             @if ($job->appliers()->count() !== 0)
-              @foreach ($job->appliers()->get() as $applier)
+              {{-- @foreach ($job->appliers()->get() as $applier)
                 <tr>
                   <td>{{$i++}}</td>
                   <td>{{$applier->user->name}}</td>
@@ -48,14 +47,11 @@ Applier {{$job->job_title}}
                   <td>{{$applier->user->gpa}} / {{$applier->user->gpa_max}}</td>
                   <td>{{$applier->user->institution}}</td>
                   <td>{{$applier->stage !== NULL ? $applier->stage->stage_name : 'Submit'}}</td>
-                  {{-- <td>
-                  <a href="" target="_blank" class="btn btn-sm btn-warning">Download</a>
-                  </td> --}}
                   <td>
                     <a href="{{route('admin.candidate.preview',['id'=>$applier->user->id,'seleksi'=>$applier->user->id,'job'=>$job->id])}}" class="btn btn-sm btn-primary">Preview</a>
                   </td>
                 </tr>
-              @endforeach
+              @endforeach --}}
             @endif
           </tbody>
         </table>
@@ -75,15 +71,16 @@ Applier {{$job->job_title}}
               <th rowspan="2">Tahapan</th>
 
               @if (App\models\stage::whereIn('id', unserialize($job->stages_list))->count() !== 0)
-                  @foreach (App\models\stage::whereIn('id', unserialize($job->stages_list))->get() as $stage)
+                  {{-- @foreach (App\models\stage::whereIn('id', unserialize($job->stages_list))->get() as $stage)
                     <th colspan="{{$stage->parameters()->count()}}" style="background:orange; color:black">
                       {{$stage->stage_name}}
                       <br>
                       ({{$stage->percentage}} %)
                     </th>
-                  @endforeach
+                  @endforeach --}}
               @endif
 
+              {{-- NOPE --}}
               {{-- @if (App\models\stage::all()->count() !== 0)
                   @foreach (App\models\stage::whereIn('id', unserialize($job->stages_list))->get() as $stage)
                     @php
@@ -103,23 +100,23 @@ Applier {{$job->job_title}}
             <tr>
                 @if (App\models\parameter::all()->count() !== 0)
                   @php
-                    $stages = App\models\stage::whereIn('id', unserialize($job->stages_list))->get();
-                    foreach ($stages as $key => $stage) {
-                      foreach ($stage->parameters()->get() as $key => $parameter) {
-                        $par[]= $parameter->id;
-                      }
-                    }
+                    // $stages = App\models\stage::whereIn('id', unserialize($job->stages_list))->get();
+                    // foreach ($stages as $key => $stage) {
+                    //   foreach ($stage->parameters()->get() as $key => $parameter) {
+                    //     $par[]= $parameter->id;
+                    //   }
+                    // }
                   @endphp
 
 
-                  @foreach (App\models\parameter::whereIn('id', $par)->get() as $parameter)
+                  {{-- @foreach (App\models\parameter::whereIn('id', $par)->get() as $parameter)
                     <th style="font-size:9pt;background:grey">
                       {{$parameter->parameter_name}}
                       <br>
                       ({{$parameter->percentage}} %)
 
                     </th>
-                  @endforeach
+                  @endforeach --}}
                 @endif
               </tr>
 
