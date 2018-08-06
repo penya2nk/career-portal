@@ -9,7 +9,7 @@
       background-position: center;
     ">
       <div class="banner-video-wrapper">
-        <video loop="" muted="" autoplay="" poster="" class="banner-video__video" src="https://res.cloudinary.com/blst/video/upload/v1533287684/video-banner-blst.mp4"></video>
+        <video loop="" muted="" autoplay="" poster="" class="banner-video__video" style="width:100%" src="https://res.cloudinary.com/blst/video/upload/v1533287684/video-banner-blst.mp4"></video>
       </div>
       {{-- <div class="caption-job-header">
         <h1>{{Auth::user()->name}}</h1>

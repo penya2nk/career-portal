@@ -38,22 +38,25 @@ Applier {{$job->job_title}}
             @php
               $i = 1;
             @endphp
-            @foreach ($job->appliers()->get() as $applier)
-              <tr>
-                <td>{{$i++}}</td>
-                <td>{{$applier->user->name}}</td>
-                <td>{{$applier->user->email}}</td>
-                <td>{{$applier->user->gpa}} / {{$applier->user->gpa_max}}</td>
-                <td>{{$applier->user->institution}}</td>
-                <td>{{$applier->stage !== NULL ? $applier->stage->stage_name : 'Submit'}}</td>
-                {{-- <td>
+
+            @if ($job->appliers()->count() !== 0)
+              @foreach ($job->appliers()->get() as $applier)
+                <tr>
+                  <td>{{$i++}}</td>
+                  <td>{{$applier->user->name}}</td>
+                  <td>{{$applier->user->email}}</td>
+                  <td>{{$applier->user->gpa}} / {{$applier->user->gpa_max}}</td>
+                  <td>{{$applier->user->institution}}</td>
+                  <td>{{$applier->stage !== NULL ? $applier->stage->stage_name : 'Submit'}}</td>
+                  {{-- <td>
                   <a href="" target="_blank" class="btn btn-sm btn-warning">Download</a>
-                </td> --}}
-                <td>
-                  <a href="{{route('admin.candidate.preview',['id'=>$applier->user->id,'seleksi'=>$applier->user->id,'job'=>$job->id])}}" class="btn btn-sm btn-primary">Preview</a>
-                </td>
-              </tr>
-            @endforeach
+                  </td> --}}
+                  <td>
+                    <a href="{{route('admin.candidate.preview',['id'=>$applier->user->id,'seleksi'=>$applier->user->id,'job'=>$job->id])}}" class="btn btn-sm btn-primary">Preview</a>
+                  </td>
+                </tr>
+              @endforeach
+            @endif
           </tbody>
         </table>
       </div>
