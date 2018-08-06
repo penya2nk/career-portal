@@ -54,7 +54,7 @@ Applier {{$job->job_title}}
         </table>
       </div>
     </div>
-    {{-- <div class="row" style="margin-top:80px">
+    <div class="row" style="margin-top:80px">
       <div class="col-md-12">
         <h4>Nilai Seleksi</h4>
         <hr>
@@ -80,7 +80,7 @@ Applier {{$job->job_title}}
               <th rowspan="2">Masuk Tahap</th>
             </tr>
 
-            <tr>
+            {{-- <tr>
                 @if (App\models\parameter::all()->count() !== 0)
                   @php
                     $stages = App\models\stage::whereIn('id', unserialize($job->stages_list))->get();
@@ -101,10 +101,10 @@ Applier {{$job->job_title}}
                     </th>
                   @endforeach
                 @endif
-              </tr>
+              </tr> --}}
 
           </thead>
-          <tbody>
+          {{-- <tbody>
             @php
               $i = 1;
             @endphp
@@ -164,10 +164,10 @@ Applier {{$job->job_title}}
 
               </tr>
             @endforeach
-          </tbody>
+          </tbody> --}}
         </table>
       </div>
-    </div> --}}
+    </div>
   </div>
 
 
