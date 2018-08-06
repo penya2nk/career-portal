@@ -39,6 +39,10 @@ Applier {{$job->job_title}}
               $i = 1;
             @endphp
 
+            @php
+              dd($job->appliers()->count());
+            @endphp
+
             @if ($job->appliers()->count() !== 0)
               @foreach ($job->appliers()->get() as $applier)
                 <tr>
