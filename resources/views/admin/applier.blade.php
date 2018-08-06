@@ -39,10 +39,6 @@ Applier {{$job->job_title}}
               $i = 1;
             @endphp
 
-            @php
-              dd($job->appliers()->count());
-            @endphp
-
             @if ($job->appliers()->count() !== 0)
               @foreach ($job->appliers()->get() as $applier)
                 <tr>
@@ -132,27 +128,29 @@ Applier {{$job->job_title}}
             @php
               $i = 1;
             @endphp
-            @foreach ($job->appliers()->get() as $applier)
-              <tr>
-                <td>{{$i++}}</td>
-                <td>{{$applier->user->name}}</td>
-                <td>{{$applier->user->gpa}} / {{$applier->user->gpa_max}}</td>
-                <td>{{$applier->user->institution}}</td>
-                <td>{{$applier->stage !== NULL ? $applier->stage->stage_name : 'Submit'}}</td>
 
-                {{-- Parameter Nilai --}}
-                @if (App\models\parameter::all()->count() !== 0)
+            @if ($job->appliers()->count() !== 0)
+              @foreach ($job->appliers()->get() as $applier)
+                <tr>
+                  <td>{{$i++}}</td>
+                  <td>{{$applier->user->name}}</td>
+                  <td>{{$applier->user->gpa}} / {{$applier->user->gpa_max}}</td>
+                  <td>{{$applier->user->institution}}</td>
+                  <td>{{$applier->stage !== NULL ? $applier->stage->stage_name : 'Submit'}}</td>
+
+                  {{-- Parameter Nilai --}}
+                  @if (App\models\parameter::all()->count() !== 0)
                     @foreach (App\models\parameter::whereIn('id', $par)->get() as $parameter)
                       @php
                       // dd($applier->user);
-                        $check = $applier->user->parameters()->where([['parameter_id',$parameter->id],['job_id', $job->id]])->first();
-                        if ($check == NULL) {
-                          $score = '-';
-                          $stamp = '';
-                        }else{
-                          $score = $check->pivot->score;
-                          $stamp = $check->pivot->user_submit.' <br> '.$check->pivot->updated_at;
-                        }
+                      $check = $applier->user->parameters()->where([['parameter_id',$parameter->id],['job_id', $job->id]])->first();
+                      if ($check == NULL) {
+                        $score = '-';
+                        $stamp = '';
+                      }else{
+                        $score = $check->pivot->score;
+                        $stamp = $check->pivot->user_submit.' <br> '.$check->pivot->updated_at;
+                      }
                       @endphp
                       {{-- {{$check[]= $parameter->pivot->score}} --}}
                       <td>{{$score}}<br>
@@ -164,35 +162,36 @@ Applier {{$job->job_title}}
                         ">{!!$stamp!!}</span>
                       </td>
                     @endforeach
-                @endif
-                <td>
-                  @if (App\models\stage::whereIn('id', unserialize($job->stages_list))->count() !== 0)
-                    <input type="hidden" class="user_id" name="" value="{{$applier->user->id}}">
-                    {{-- <small style="display:inline-block;text-align:center;width:100%" class="tahap_name">{{$user->stage_id !== NULL ? $user->stage->stage_name : 'Seleksi Berkas'}}</small> --}}
-                    <select class="seleksi-tahap" name="seleksi_tahap" data-search="Done">
-                      @foreach (App\models\stage::whereIn('id', unserialize($job->stages_list))->get() as $stage)
-                      <option
-                        {{$status_candidate = $applier->where([['user_id', $applier->user->id],['job_id',$job->id]])->first()}}
-                        @if($status_candidate !== NULL)
-                          @if($status_candidate->stage_id == $stage->id)
-                            selected
+                  @endif
+                  <td>
+                    @if (App\models\stage::whereIn('id', unserialize($job->stages_list))->count() !== 0)
+                      <input type="hidden" class="user_id" name="" value="{{$applier->user->id}}">
+                      {{-- <small style="display:inline-block;text-align:center;width:100%" class="tahap_name">{{$user->stage_id !== NULL ? $user->stage->stage_name : 'Seleksi Berkas'}}</small> --}}
+                      <select class="seleksi-tahap" name="seleksi_tahap" data-search="Done">
+                        @foreach (App\models\stage::whereIn('id', unserialize($job->stages_list))->get() as $stage)
+                          <option
+                          {{$status_candidate = $applier->where([['user_id', $applier->user->id],['job_id',$job->id]])->first()}}
+                          @if($status_candidate !== NULL)
+                            @if($status_candidate->stage_id == $stage->id)
+                              selected
+                            @endif
                           @endif
-                        @endif
-                        value="{{$stage->id}}" class="form-control">{{$stage->stage_name}}
-                      </option>
+                          value="{{$stage->id}}" class="form-control">{{$stage->stage_name}}
+                        </option>
                       @endforeach
                     </select>
                   @endif
                 </td>
 
                 {{-- <td>
-                  <a href="" target="_blank" class="btn btn-sm btn-warning">Download</a>
-                </td> --}}
-                {{-- <td>
-                  <a href="{{route('admin.candidate.preview',['id'=>$applier->user->id,'seleksi'=>$applier->user->id,'job'=>$job->id])}}" class="btn btn-sm btn-primary">Preview</a>
-                </td> --}}
-              </tr>
-            @endforeach
+                <a href="" target="_blank" class="btn btn-sm btn-warning">Download</a>
+              </td> --}}
+              {{-- <td>
+              <a href="{{route('admin.candidate.preview',['id'=>$applier->user->id,'seleksi'=>$applier->user->id,'job'=>$job->id])}}" class="btn btn-sm btn-primary">Preview</a>
+            </td> --}}
+          </tr>
+        @endforeach
+            @endif
           </tbody>
         </table>
       </div>
