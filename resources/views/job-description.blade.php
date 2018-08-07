@@ -2,10 +2,15 @@
 
 @section('content')
 <div class="container-fluid no-padding">
-  <div class="main-slider-wrapper">
-    <div class="banner-video-wrapper">
+  <div class="main-slider-wrapper" style="
+  height: 263px;
+    background: url({{asset('images/header-profile.jpg')}}) no-repeat;
+    background-size: cover;
+    background-position: center;
+  ">
+    {{-- <div class="banner-video-wrapper">
       <video loop="" muted="" autoplay="" style="width:100%" poster="" class="banner-video__video" src="https://res.cloudinary.com/blst/video/upload/v1533287684/video-banner-blst.mp4"></video>
-    </div>
+    </div> --}}
 
   </div>
   <div class="job-desc">

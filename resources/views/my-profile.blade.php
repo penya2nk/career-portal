@@ -4,13 +4,13 @@
   <div class="container-fluid no-padding">
     <div class="heading-slider-wrapper" style="
     height: 263px;
-      {{-- background: url({{asset('images/header-profile.jpg')}}) no-repeat; --}}
+      background: url({{asset('images/header-profile.jpg')}}) no-repeat;
       background-size: cover;
       background-position: center;
     ">
-      <div class="banner-video-wrapper">
+      {{-- <div class="banner-video-wrapper">
         <video loop="" muted="" autoplay="" poster="" class="banner-video__video" style="width:100%" src="https://res.cloudinary.com/blst/video/upload/v1533287684/video-banner-blst.mp4"></video>
-      </div>
+      </div> --}}
       {{-- <div class="caption-job-header">
         <h1>{{Auth::user()->name}}</h1>
       </div> --}}
