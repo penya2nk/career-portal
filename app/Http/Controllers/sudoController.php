@@ -24,8 +24,10 @@ class sudoController extends Controller
         $tes = Auth::login($user);
         return redirect('/admin')->withInput();
       }elseif($check_tbluser) {
+
+        $user_blst = $check_tbluser = tbluser::where('email', $user_email)->first();
         $user = new User;
-        $user->name = $user_email;
+        $user->name = $user_blst->name_user;
         $user->email = $user_email;
         $user->token = str_random(20);
         $user->status = 0;
