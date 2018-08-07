@@ -66,11 +66,9 @@ Applier {{$job->job_title}}
               <th rowspan="2">IPK</th>
               <th rowspan="2">Kampus</th>
               <th rowspan="2">Tahapan</th>
-              @php
-                dd(unserialize($job->stages_list));
-              @endphp
 
-              {{-- @if (App\models\stage::whereIn('id', unserialize($job->stages_list))->count() !== 0)
+
+              @if (unserialize($job->stages_list) !== NULL && App\models\stage::whereIn('id', unserialize($job->stages_list))->count() !== 0)
                   @foreach (App\models\stage::whereIn('id', unserialize($job->stages_list))->get() as $stage)
                     <th colspan="{{$stage->parameters()->count()}}" style="background:orange; color:black">
                       {{$stage->stage_name}}
@@ -78,7 +76,7 @@ Applier {{$job->job_title}}
                       ({{$stage->percentage}} %)
                     </th>
                   @endforeach
-              @endif --}}
+              @endif
 
               <th rowspan="2">Masuk Tahap</th>
             </tr>
