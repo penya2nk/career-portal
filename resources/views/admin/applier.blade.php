@@ -5,7 +5,10 @@ Applier {{$job->job_title}}
 @endsection
 
 @section('right-header')
-  <a href="{{route('admin.jobvacancy.add')}}" style="margin: 10px;" class="btn btn-success">add Admin</a>
+  <form class="" action="{{route('admin.jobvacancy.edit',['id'=>$job->id])}}" method="post">
+    {{ csrf_field() }}
+    <button type="submit" class="btn btn-warning btn-sm">Add Admin</button>
+  </form>
 @endsection
 
 <link rel="stylesheet" href="{{asset('datatables/css/jquery.dataTables.css')}}">
