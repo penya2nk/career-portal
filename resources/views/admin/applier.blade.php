@@ -67,7 +67,7 @@ Applier {{$job->job_title}}
               <th rowspan="2">Kampus</th>
               <th rowspan="2">Tahapan</th>
               @php
-                dd(App\models\stage::all());
+                dd(unserialize($job->stages_list));
               @endphp
 
               {{-- @if (App\models\stage::whereIn('id', unserialize($job->stages_list))->count() !== 0)
