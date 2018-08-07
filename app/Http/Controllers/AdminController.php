@@ -46,7 +46,11 @@ class AdminController extends Controller
 
     public function jobvacancy_add()
     {
-      return view('admin.jobvacancyadd');
+      // Integrasi blst
+      $tbluser =tbluser::all();
+      $data = array('tbluser' =>$tbluser , );
+
+      return view('admin.jobvacancyadd')->with($data);
     }
 
     public function check_admin_exists($job_id, $id_blst)

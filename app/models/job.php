@@ -22,4 +22,9 @@ class job extends Model
     return $this->hasMany(applier::class);
   }
 
+  public function admins()
+  {
+    return $this->hasMany('App\models\admin', 'job_id');
+  }
+
 }

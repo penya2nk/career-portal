@@ -47,6 +47,7 @@ Add Job Vacancy
             <select multiple class="form-control select2" name="id_blst[]">
               @foreach ($tbluser as $user)
                 <option
+                  @if(isset($status)) @if(in_array($user->id_user, $job->admins->pluck('id_blst')->toArray())) selected @endif @endif
                   value="{{$user->id_user}}">{{$user->name_user}}</option>
               @endforeach
             </select>
@@ -149,7 +150,7 @@ Add Job Vacancy
                             @endif
                             @foreach (App\models\stage::all() as $stages)
                               <div class="checkbox">
-                                <label><input type="checkbox" @if(unserialize($job->stages_list) !== NULL &&  isset($status)) @if(in_array($stages->id,unserialize($job->stages_list))) checked @endif @endif name="stage[]" value="{{$stages->id}}"> {{$stages->stage_name}}</label>
+                                <label><input type="checkbox" @if(isset($status) && unserialize($job->stages_list) !== NULL &&  isset($status)) @if(in_array($stages->id,unserialize($job->stages_list))) checked @endif @endif name="stage[]" value="{{$stages->id}}"> {{$stages->stage_name}}</label>
                               </div>
                             @endforeach
                           </div>
