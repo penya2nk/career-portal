@@ -11,9 +11,11 @@ class sudoController extends Controller
 {
     public function gate_sdmblst()
     {
-      $user_email = $_GET['us'];
-      $user_pass = $_GET['ps'];
-      $user_company = $_GET['co'];
+
+      $user_email = base64_decode($_GET['us']);
+      $user_pass = base64_decode($_GET['ps']);
+      $user_company = base64_decode($_GET['co']);
+      $user_id = base64_decode($_GET['id']);
 
       $check_tbluser = tbluser::where('email', $user_email)->exists();
       $check_exist = user::where('email', $user_email)->exists();
@@ -30,6 +32,7 @@ class sudoController extends Controller
         $user->userlevel = 1;
         $user->company_id = $user_company;
         $user->password =bcrypt($user_pass);
+        $user->id_blst = $user_id;
         $user->save();
 
         $email_data = array('user' =>$user , );

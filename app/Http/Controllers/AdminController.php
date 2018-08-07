@@ -7,6 +7,9 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\models\company;
 use App\models\job;
+use App\tbluser;
+use App\User;
+use App\models\admin;
 use Session;
 
 
@@ -46,6 +49,12 @@ class AdminController extends Controller
       return view('admin.jobvacancyadd');
     }
 
+    public function check_admin_exists($job_id, $id_blst)
+    {
+      $check = admin::where([['job_id', $job_id],['id_blst', $id_blst]])->exists();
+      return $check;
+    }
+
     public function jobvacancy_create(Request $request)
     {
       $job = new job;
@@ -62,6 +71,25 @@ class AdminController extends Controller
       $job->min_experience = $request->min_experience;
       $job->save();
 
+      // integrasi BLST
+      if ($request->id_blst !== NULL) {
+        foreach ($request->id_blst as $key => $value) {
+          $check_ada_admin = $this->check_admin_exists($job->id, $value);
+          if (!$check_ada_admin) {
+            $addadmin = new admin;
+            $addadmin->job_id = $job->id;
+            $addadmin->id_blst = $value;
+
+            $tbluser =tbluser::where('id_user', $value)->first();
+            if ($tbluser !== NULL) {
+              $addadmin->email = $tbluser->email;
+            }
+
+            $addadmin->save();
+          }
+        }
+      }
+
       Session::flash('status','Job Vacancy Successfully Created');
 
       return redirect()->route('admin.jobvacancy.index');
@@ -69,12 +97,34 @@ class AdminController extends Controller
 
     public function jobvacancy_edit($id)
     {
+
+      $tbluser =tbluser::all();
+
       $job = job::find($id);
       $status = 'edit';
+      $user_maker = User::find($job->user_id);
+
+
 
       $data = array('job' =>$job,
-                    'status'=> $status
+                    'status'=> $status,
+                    'tbluser'=>$tbluser
                     );
+
+                    // integrasi BLST
+                    $user = Auth::user();
+                    $id_blst = $user->id_blst;
+                    $email = $user->email;
+
+                    $admin_able = admin::where([['job_id', $id],['id_blst',$id_blst]])->exists();
+                    $owner = $user_maker->id == Auth::user()->id;
+
+                    if (!$admin_able && !$owner) {
+                      Session::flash('error','Anda belum menjadi bagian admin dari lowongan kerja ini. Hubungi '.$user_maker->name.' selaku pembuat lowongan');
+                      return redirect()->route('admin.jobvacancy.index');
+                    }
+
+
       return view('admin.jobvacancyadd')->with($data);
     }
 
@@ -94,6 +144,25 @@ class AdminController extends Controller
       $job->work_location = $request->work_location;
       $job->min_experience = $request->min_experience;
       $job->update();
+
+      // integrasi BLST
+      if ($request->id_blst !== NULL) {
+        foreach ($request->id_blst as $key => $value) {
+          $check_ada_admin = $this->check_admin_exists($job->id, $value);
+          if (!$check_ada_admin) {
+            $addadmin = new admin;
+            $addadmin->job_id = $job->id;
+            $addadmin->id_blst = $value;
+
+            $tbluser =tbluser::where('id_user', $value)->first();
+            if ($tbluser !== NULL) {
+              $addadmin->email = $tbluser->email;
+            }
+
+            $addadmin->save();
+          }
+        }
+      }
 
       Session::flash('status','Job Vacancy Successfully Edited');
 

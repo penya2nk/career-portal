@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddCompanyUser extends Migration
+class CreateAdminsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,12 @@ class AddCompanyUser extends Migration
      */
     public function up()
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->integer('company_id')->nullable();
-            $table->string('id_blst')->nullable();
+        Schema::create('admins', function (Blueprint $table) {
+            $table->increments('id');
+            $table->timestamps();
+            $table->integer('job_id');
+            $table->string('id_blst');
+            $table->string('email')->nullable();
         });
     }
 
@@ -26,9 +29,6 @@ class AddCompanyUser extends Migration
      */
     public function down()
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn('company_id');
-            $table->dropColumn('id_blst');
-        });
+        Schema::dropIfExists('admins');
     }
 }

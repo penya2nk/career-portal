@@ -27,11 +27,36 @@ Add Job Vacancy
 
 @section('right-header')
   <a href="{{route('admin.jobvacancy.index')}}" style="margin: 10px;" class="btn btn-warning">Back</a>
+  <button type="button" id="save-button" class="btn btn-info">
+    Save
+  </button>
 @endsection
 
 @section('content')
-<form data-toggle="validator" class="" @if(!isset($status)) action="{{route('admin.jobvacancy.create')}}" @else action="{{route('admin.jobvacancy.postedit', ['id'=>$job->id])}}" @endif  method="post">
+<form data-toggle="validator" id="job-editor" class="" @if(!isset($status)) action="{{route('admin.jobvacancy.create')}}" @else action="{{route('admin.jobvacancy.postedit', ['id'=>$job->id])}}" @endif  method="post">
   {{ csrf_field() }}
+  {{-- Modul SDM BLST --}}
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header">
+          <strong>Admin</strong>
+        </div>
+        <div class="card-body card-block">
+          <div class="form-group">
+            <select multiple class="form-control select2" name="id_blst[]">
+              @foreach ($tbluser as $user)
+                <option
+                  value="{{$user->id_user}}">{{$user->name_user}}</option>
+              @endforeach
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
   <div class="row">
     <div class="col-md-6">
       <div class="card">
@@ -161,13 +186,15 @@ Add Job Vacancy
           </div>
         </div>
       </div>
-
     </div>
   </div>
+
+
+
   <div class="row">
     <div class="col-lg-12">
       <div class="card">
-        <button type="submit" class="btn btn-warning">Save</button>
+        <button type="submit" class="btn btn-info">Save</button>
       </div>
     </div>
   </div>
@@ -204,7 +231,11 @@ Add Job Vacancy
       });
     </script>
 
-
+    <script type="text/javascript">
+      $('#save-button').on('click', function() {
+        $('#job-editor').submit();
+      });
+    </script>
 
 
 

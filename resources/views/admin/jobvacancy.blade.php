@@ -89,6 +89,16 @@ Job Vacancy
       </script>
     @endif
 
+    @if (session()->has('error'))
+      <script type="text/javascript">
+      swal({
+                  title:'{{session()->get('error')}}',
+                  type:'error'
+                },
+              );
+      </script>
+    @endif
+
     <script type="text/javascript">
       $('.delete-job').on('click', function() {
         swal({

@@ -14,6 +14,8 @@ use App\models\stage;
 use App\models\user_parameter;
 use App\models\job;
 use App\models\applier;
+use App\models\admin;
+use Session;
 
 
 
@@ -30,8 +32,27 @@ class seleksiController extends Controller
 
     public function applier($id)
     {
+
       $job = job::find($id);
       $data = array('job' =>$job , );
+
+      $user_maker = User::find($job->user_id);
+
+
+                    // integrasi BLST
+                    $user = Auth::user();
+                    $id_blst = $user->id_blst;
+                    $email = $user->email;
+
+                    $admin_able = admin::where([['job_id', $id],['id_blst',$id_blst]])->exists();
+                    $owner = $user_maker->id == Auth::user()->id;
+
+                    if (!$admin_able && !$owner) {
+                      Session::flash('error','Anda belum menjadi bagian admin dari lowongan kerja ini. Hubungi '.$user_maker->name.' selaku pembuat lowongan');
+                      return redirect()->route('admin.jobvacancy.index');
+                    }
+
+
       return view('admin.applier')->with($data);
     }
 
