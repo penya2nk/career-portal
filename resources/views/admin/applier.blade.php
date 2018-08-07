@@ -15,6 +15,11 @@ Applier {{$job->job_title}}
 
 @section('content')
   <div class="container">
+    @if (unserialize($job->stages_list) == NULL)
+      <div class="row">
+        <div class="alert alert-warning">Mohon untuk Memilih tahapan seleksi dari data lowongan ini</div>
+      </div>
+    @endif
     <div class="row">
       <div class="col-md-12">
 
@@ -77,7 +82,7 @@ Applier {{$job->job_title}}
                     </th>
                   @endforeach
               @else
-                <th>Mohon untuk Memilih tahapan seleksi dari data lowongan ini</th>
+                <th>NULL</th>
               @endif
 
               <th rowspan="2">Masuk Tahap</th>
