@@ -76,13 +76,15 @@ Applier {{$job->job_title}}
                       ({{$stage->percentage}} %)
                     </th>
                   @endforeach
+              @else
+                <th>Mohon untuk Memilih tahapan seleksi dari data lowongan ini</th>
               @endif
 
               <th rowspan="2">Masuk Tahap</th>
             </tr>
 
-            {{-- <tr>
-                @if (App\models\parameter::all()->count() !== 0)
+            <tr>
+                @if (unserialize($job->stages_list) !== NULL && App\models\parameter::all()->count() !== 0)
                   @php
                     $stages = App\models\stage::whereIn('id', unserialize($job->stages_list))->get();
                     foreach ($stages as $key => $stage) {
@@ -102,10 +104,10 @@ Applier {{$job->job_title}}
                     </th>
                   @endforeach
                 @endif
-              </tr> --}}
+              </tr>
 
           </thead>
-          {{-- <tbody>
+          <tbody>
             @php
               $i = 1;
             @endphp
@@ -118,7 +120,7 @@ Applier {{$job->job_title}}
                 <td>{{$applier->stage !== NULL ? $applier->stage->stage_name : 'Submit'}}</td>
 
 
-                @if (App\models\parameter::all()->count() !== 0)
+                @if (unserialize($job->stages_list) !== NULL && App\models\parameter::all()->count() !== 0)
                     @foreach (App\models\parameter::whereIn('id', $par)->get() as $parameter)
                       @php
                       // Parameter Nilai
@@ -144,7 +146,7 @@ Applier {{$job->job_title}}
                     @endforeach
                 @endif
                 <td>
-                  @if (App\models\stage::whereIn('id', unserialize($job->stages_list))->count() !== 0)
+                  @if (unserialize($job->stages_list) !== NULL && App\models\stage::whereIn('id', unserialize($job->stages_list))->count() !== 0)
                     <input type="hidden" class="user_id" name="" value="{{$applier->user->id}}">
                     <select class="seleksi-tahap" name="seleksi_tahap" data-search="Done">
                       @foreach (App\models\stage::whereIn('id', unserialize($job->stages_list))->get() as $stage)
@@ -165,7 +167,7 @@ Applier {{$job->job_title}}
 
               </tr>
             @endforeach
-          </tbody> --}}
+          </tbody>
         </table>
       </div>
     </div>
