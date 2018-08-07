@@ -135,8 +135,7 @@ class AdminController extends Controller
     public function jobvacancy_edit_post(Request $request, $id)
     {
 
-      $job = job::find($id);
-      $job->user_id = Auth::user()->id;
+      $job = job::find($id);      
       $job->published = $request->published;
       $job->company_id = $request->company_id;
       $job->stages_list = serialize($request->stage);
