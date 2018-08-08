@@ -15,6 +15,7 @@
       @foreach ($jobs as $job)
         <div class="col-md-4" style="">
           <div class="card-wrapper-job">
+            <span class="badge badge-secondary">{{$job->company->name_company}}</span>
             <span class="card-job-title">
               {{strtoupper($job->job_title)}}
             </span>
@@ -25,6 +26,10 @@
             <div class="job-time-criteria">
               <span class="fa fa-map-marker"></span>
               {{$job->work_location}}
+            </div>
+            <div class="deadline-date">
+              Deadline: <br>
+              {{$job->deadline->format('d F Y')}}
             </div>
             <a href="{{route('job.desc',['id'=>$job->id])}}" class="btn btn-warning">Detail</a>
           </div>

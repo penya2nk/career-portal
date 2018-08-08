@@ -21,6 +21,12 @@ input[type="color"]:focus,
   outline: 0 none;
 }
 
+.deadline-date {
+    position:  absolute;
+    bottom:  20px;
+    font-size: 9pt;
+}
+
 img.profpic {
 
   width: 101%;
