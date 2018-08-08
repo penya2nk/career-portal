@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\models\job;
+use Carbon\Carbon;
 
 class HomeController extends Controller
 {
@@ -32,6 +33,7 @@ class HomeController extends Controller
 
     public function job($id)
     {
+      Carbon::setLocale('id');
       $job = job::find($id);
       $data = array('job' =>$job,);
       return view('job-description')->with($data);

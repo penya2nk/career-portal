@@ -61,17 +61,26 @@
 
         <div class="col-md-4">
           <div class="row">
-            <div class="col-md-12">
-              <div class="apply-button">
-                <a href="{{route('job.desc.apply',['id'=>$job->id])}}" class="btn btn-warning btn-square btn-block btn-lg"><span class="fa fa-briefcase"></span> Apply</a>
-              </div>
+            <div class="col-md-12 text-center">
+
+              @if ($job->deadline->greaterThan(Carbon\Carbon::now()))
+                <div class="apply-button">
+                  <a href="{{route('job.desc.apply',['id'=>$job->id])}}" class="btn btn-warning btn-square btn-block btn-lg"><span class="fa fa-briefcase"></span> Apply</a>
+                </div>
+                <small>Deadline : {{$job->deadline->format('d F Y')}} <br> ({{$job->deadline->diffforHumans()}})</small>
+              @else
+                <div class="apply-button">
+                  <a href="#" class="btn btn-secondary btn-square btn-block btn-lg" style="border-bottom: 9px solid #4d4d4d;"><span class="fa fa-lock"></span> Closed</a>
+                </div>
+              @endif
+
             </div>
           </div>
 
           <div class="row">
             <div class="col-md-12">
               <div class="job-description">
-                <h5>Kemampuan</h5>
+                <h5>Kemampuan yang dibutuhkan</h5>
                 <ul>
                   @foreach (explode(',',$job->skill_tag) as $element)
                     <li>{{$element}}</li>
@@ -98,6 +107,18 @@
                   title:'Success!',
                   text:'{{session()->get('status')}}',
                   type:'success'
+                },
+              )
+
+</script>
+@endif
+
+@if (session()->has('error'))
+<script type="text/javascript">
+    swal({
+                  title:'Error!',
+                  text:'{{session()->get('error')}}',
+                  type:'Error'
                 },
               )
 

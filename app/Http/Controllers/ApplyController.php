@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\models\job;
 use App\models\applier;
 use Session;
+use Carbon\Carbon;
 
 
 class ApplyController extends Controller
@@ -22,6 +23,13 @@ class ApplyController extends Controller
     {
       $jobs = job::find($id);
       $user = Auth::user();
+
+
+      if ($jobs->deadline->lessThan(Carbon::now())) {
+        Session::flash('error', 'Pendaftaran sudah ditutup');
+        return redirect()->route('job.desc',['id'=>$id]);
+      }
+
 
       $verification = $this->check_if_exist($jobs->id,$user->id);
 
