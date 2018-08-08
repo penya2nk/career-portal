@@ -11,6 +11,7 @@ use App\models\applier;
 class job extends Model
 {
   use SoftDeletes;
+  protected $dates = ['deadline'];
 
   public function company()
   {

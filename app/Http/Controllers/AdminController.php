@@ -66,6 +66,7 @@ class AdminController extends Controller
       $job->job_title = $request->job_title;
       $job->company_id = $request->company_id;
       $job->published = $request->published;
+      $job->deadline = $request->deadline;
       $job->stages_list = serialize($request->stage);
       $job->time_type = $request->time_type;
       $job->skill_tag = $request->skill_tag;
@@ -135,12 +136,13 @@ class AdminController extends Controller
     public function jobvacancy_edit_post(Request $request, $id)
     {
 
-      $job = job::find($id);      
+      $job = job::find($id);
       $job->published = $request->published;
       $job->company_id = $request->company_id;
       $job->stages_list = serialize($request->stage);
       $job->job_title = $request->job_title;
       $job->time_type = $request->time_type;
+      $job->deadline = $request->deadline;
       $job->skill_tag = $request->skill_tag;
       $job->job_description = $request->job_description;
       $job->skill_requirement = $request->skill_requirement;

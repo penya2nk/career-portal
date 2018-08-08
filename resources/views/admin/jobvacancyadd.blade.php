@@ -87,6 +87,11 @@ Add Job Vacancy
               <option @if(isset($status)) @if($job->published == "0") selected @endif @endif value="0">Draft</option>
             </select>
           </div>
+
+          <div class="form-group">
+            <label for="">Deadline Submission</label>
+            <input type="date" @if(isset($status)) @if($job->deadline->format('dmY') == "3011-0001") value="{{Carbon\Carbon::now()->addDays(29)->format('Y-m-d')}}" @else value="{{$job->deadline->format('Y-m-d')}}" @endif @else value="{{Carbon\Carbon::now()->addDays(29)->format('Y-m-d')}}" @endif name="deadline" class="form-control" id="" placeholder="">
+          </div>
         </div>
       </div>
     </div>
