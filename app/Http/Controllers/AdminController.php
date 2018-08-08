@@ -176,7 +176,25 @@ class AdminController extends Controller
 
     public function jobvacancy_delete(Request $request,$id)
     {
+
+      $tbluser =tbluser::all();
       $job = job::find($id)->delete();
+      $user_maker = User::find($job->user_id);
+
+                    // integrasi BLST
+                    $user = Auth::user();
+                    $id_blst = $user->id_blst;
+                    $email = $user->email;
+
+                    $admin_able = admin::where([['job_id', $id],['id_blst',$id_blst]])->exists();
+                    $owner = $user_maker->id == Auth::user()->id;
+
+                    if (!$admin_able && !$owner) {
+                      Session::flash('error','Anda belum menjadi bagian admin dari lowongan kerja ini. Hubungi '.$user_maker->name.' selaku pembuat lowongan');
+                      return redirect()->route('admin.jobvacancy.index');
+                    }
+
+
       Session::flash('status','Job Vacancy Successfully Deleted');
       return redirect()->route('admin.jobvacancy.index');
     }
