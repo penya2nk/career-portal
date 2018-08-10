@@ -18,7 +18,7 @@ class AddAdditionalDataInUser extends Migration
             $table->string('first_name')->after('name')->nullable();
             $table->string('middle_name')->after('name')->nullable();
             $table->string('last_name')->after('name')->nullable();
-
+            $table->string('born_place')->after('born_date')->nullable();
         });
     }
 

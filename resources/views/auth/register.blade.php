@@ -75,9 +75,24 @@
           </div>
         @endif
 
-        <div class="form-group">
-          <input type="text" name="born_date" id="datetimepicker5" data-toggle="datetimepicker" data-target="#datetimepicker5" @if(isset($status)) value="{{$user->born_date}}" @endif class="form-control" id="" placeholder="Born Date">
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="">Place of Birth</label>
+              <input type="text" name="born_place" @if(isset($status)) value="{{$user->born_place}}" @endif class="form-control" id="" placeholder="">
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="">Date of Birth</label>
+              <input type="text" name="born_date" id="datetimepicker5" data-toggle="datetimepicker" data-target="#datetimepicker5" @if(isset($status)) value="{{$user->born_date}}" @endif class="form-control" id="" placeholder="DD-MM-YYYY">
+            </div>
+          </div>
         </div>
+
+
+
+
         <script type="text/javascript">
             $(function () {
                 $('#datetimepicker5').datetimepicker({
