@@ -10,6 +10,7 @@ use Session;
 use App\User;
 use Cloudder;
 use Carbon\Carbon;
+use App\models\employhistory;
 
 
 
@@ -64,6 +65,7 @@ class userController extends Controller
 
       $user->last_education = $data['last_education'];
       $user->institution = $data['institution'];
+      $user->year = $data['year'];
       $user->major = $data['major'];
       $user->graduation_year = $data['graduation_year'];
       $user->gpa = $data['gpa'];
@@ -105,8 +107,40 @@ class userController extends Controller
       $user->phone = $phone_subs;
       $user->save();
 
-
-
       return redirect()->route('my.profile')->with('success', 'Your profile has been saved');
+    }
+
+    public function add_history(Request $request)
+    {
+      $databaseuser= new employhistory;
+      $databaseuser->user_id                    = Auth::user()->id;
+      $databaseuser->cv_position                = $request->cv_position;
+      $databaseuser->cv_type                    = $request->cv_type;
+      $databaseuser->cv_company                 = $request->cv_company;
+      $databaseuser->cv_city                    = $request->cv_city;
+      $databaseuser->cv_description             = $request->cv_description;
+      $databaseuser->y1_sdmcv                   = $request->y1_sdmcv;
+      $databaseuser->y2_sdmcv                   = $request->y2_sdmcv;
+      $databaseuser->user_submit                = Auth::user()->name;
+      $databaseuser->save();
+
+      return redirect()->route('my.profile')->with('success', 'Your Career History has been saved');
+    }
+
+    public function update_history(Request $request, $id)
+    {
+      $databaseuser= employhistory::find($id);
+      $databaseuser->user_id                    = Auth::user()->id;
+      $databaseuser->cv_position                = $request->cv_position;
+      $databaseuser->cv_type                    = $request->cv_type;
+      $databaseuser->cv_company                 = $request->cv_company;
+      $databaseuser->cv_city                    = $request->cv_city;
+      $databaseuser->cv_description             = $request->cv_description;
+      $databaseuser->y1_sdmcv                   = $request->y1_sdmcv;
+      $databaseuser->y2_sdmcv                   = $request->y2_sdmcv;
+      $databaseuser->user_submit                = Auth::user()->name;
+      $databaseuser->save();
+
+      return redirect()->route('my.profile')->with('success', 'Your Career History has been changed');
     }
 }

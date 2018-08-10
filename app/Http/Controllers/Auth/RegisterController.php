@@ -111,6 +111,7 @@ class RegisterController extends Controller
 
       $user->last_education = $data['last_education'];
       $user->institution = $data['institution'];
+      $user->year = $data['year'];
       $user->major = $data['major'];
       $user->graduation_year = $data['graduation_year'];
       $user->gpa = $data['gpa'];

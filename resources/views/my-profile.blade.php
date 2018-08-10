@@ -124,6 +124,89 @@
     </div>
   </div>
 
+  <div class="modal fade" id="add-work" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+     <div class="modal-dialog">
+       <div class="modal-content isimodal">
+         <div class="modal-header">
+           <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+           <h3>Add Career History</h3>
+         </div>
+         <div class="modal-body">
+           <div class="form-horizontal">
+
+
+           <form class="form-group" id="add-history" action="{{route('experience.add')}}" method="post" data-toggle="validator" role="form">
+
+             <div class="form-group">
+               <label for="type" class="col-sm-2 control-label">Jenis:</label>
+               <div class="col-sm-3">
+               <select class="form-control" name="cv_type" required>
+                   <option value="job" >Work</option>
+                   <option value="org" >Organization</option>
+                 </select> <span class="help-block with-errors"></span>
+               </div>
+             </div>
+
+           <div class="form-group">
+           <label for="institutionname" class="col-sm-2 control-label">Company Name</label>
+           <div class="col-sm-10"><input type="text" class="form-control" name="cv_company" value="" required ><span class="help-block with-errors"></span></div>
+           </div>
+
+           <div class="form-group">
+           <label for="institutionname" class="col-sm-2 control-label">Position</label>
+           <div class="col-sm-10"><input type="text" class="form-control" name="cv_position" value="" required><span class="help-block with-errors"></span></div>
+           </div>
+
+           <div class="form-group">
+           <label for="cvcity" class="col-sm-2 control-label">Place</label>
+           <div class="col-sm-10"><input type="text" class="form-control" name="cv_city" value="" required><span class="help-block with-errors"></span></div>
+           </div>
+
+          <div class="row">
+             <div class="form-group">
+           <label for="datein" class="col-sm-2 control-label">Start Date</label>
+           <div class="col-sm-4">
+           <div class="input-group">
+             <input type="text" class="form-control tanggal" name="y1_sdmcv" value=""  required>
+             <span class="input-group-addon">
+             <span class="glyphicon glyphicon-calendar"></span></div>
+             </span> <span class="help-block with-errors"></span>
+           </div>
+
+          </div>
+
+           <div class="form-group">
+           <label for="datein" class="col-sm-2 control-label">End Date</label>
+           <div class="col-sm-4">
+           <div class="input-group">
+             <input type="text" class="form-control tanggal" name="y2_sdmcv" value="" required>
+             <span class="input-group-addon">
+             <span class="glyphicon glyphicon-calendar"></span></div>
+             </span> <span class="help-block with-errors"></span>
+           </div>
+
+           </div>
+
+           <div class="form-group">
+           <label for="description" class="col-sm-2 control-label">Job Description</label>
+           <div class="col-sm-10"><textarea class="form-control" name="cv_description" rows="8" cols="80" required></textarea><span class="help-block with-errors"></span></div>
+           </div>
+
+            </div>
+          </div>
+         <div class="modal-footer">
+           <div class="">
+           {{ csrf_field()}}
+           <button type="submit" class="btn btn-success btn-lg" name="submit">Save</button>
+           <a class="btn btn-danger  btn-lg" role-"button" data-dismiss="modal">Cancel</a>
+           </form>
+         </div>
+       </div>
+     </div>
+   </div>
+  </div>
+</div>
+
   @if (session()->has('success'))
   <script type="text/javascript">
       swal({
