@@ -42,11 +42,11 @@
                       {{-- <div id="" class="rating">
                       </div> --}}
                       <div class="">
-                        <input type="radio" name="skill[{{$element}}]" value="5" /><label for="star5" title="5 star">1</label>
-                        <input type="radio" name="skill[{{$element}}]" value="4" /><label for="star4" title="4 star">2</label>
+                        <input type="radio" name="skill[{{$element}}]" value="1" /><label for="star5" title="5 star">1</label>
+                        <input type="radio" name="skill[{{$element}}]" value="2" /><label for="star4" title="4 star">2</label>
                         <input type="radio" name="skill[{{$element}}]" value="3" /><label for="star3" title="3 star">3</label>
-                        <input type="radio" name="skill[{{$element}}]" value="2" /><label for="star2" title="2 star">4</label>
-                        <input type="radio" name="skill[{{$element}}]" value="1" /><label for="star1" title="1 star">5</label>
+                        <input type="radio" name="skill[{{$element}}]" value="4" /><label for="star2" title="2 star">4</label>
+                        <input type="radio" name="skill[{{$element}}]" value="5" /><label for="star1" title="1 star">5</label>
                       </div>
                     </div>
                   </div>
