@@ -48,7 +48,7 @@ class userController extends Controller
       $data = $request;
 
       $user = Auth::user();
-    
+
       $user->first_name =$data['first_name'];
       $user->middle_name =$data['middle_name'];
       $user->last_name =$data['last_name'];
@@ -57,7 +57,7 @@ class userController extends Controller
 
       $user->gender = $data['gender'];
 
-
+      $user->born_place = $data['born_place'];
       $user->born_date = Carbon::createFromFormat('d-m-Y',$data['born_date']);
       $user->marital_status = $data['marital_status'];
       $user->address = $data['address'];

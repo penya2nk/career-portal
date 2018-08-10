@@ -104,6 +104,7 @@ class RegisterController extends Controller
       $user->email = $data['email'];
       $user->gender = $data['gender'];
 
+      $user->born_place = $data['born_place'];
       $user->born_date = Carbon::createFromFormat('d-m-Y',$data['born_date']);
       $user->marital_status = $data['marital_status'];
       $user->address = $data['address'];
