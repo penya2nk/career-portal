@@ -19,12 +19,38 @@
       <div class="col-md-6">
         <div class="form-group">
           <label for=""><b>Personal Data</b></label>
-          <input id="name" type="text" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" name="name" @if(!isset($status)) value="{{ old('name') }}" @else value="{{$user->name}}" @endif placeholder="Full Name" required autofocus>
+          {{-- <input id="name" type="text" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" name="name" @if(!isset($status)) value="{{ old('name') }}" @else value="{{$user->name}}" @endif placeholder="Full Name" required autofocus>
           @if ($errors->has('name'))
               <span class="invalid-feedback">
                   <strong>{{ $errors->first('name') }}</strong>
               </span>
-          @endif
+          @endif --}}
+        </div>
+
+        <div class="row">
+          <div class="col-md-4">
+            <div class="form-group">
+              <label for="">First Name</label>
+              <input type="text" name="first_name" class="form-control" @if(isset($status)) value="{{$user->first_name}}" @endif required id="" placeholder="">
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="form-group">
+              <label for="">Middle Name</label>
+              <input type="text" name="middle_name" class="form-control" @if(isset($status)) value="{{$user->middle_name}}" @endif id="" placeholder="">
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="form-group">
+              <label for="">Last Name</label>
+              <input type="text" name="last_name" class="form-control" @if(isset($status)) value="{{$user->last_name}}" @endif id="" placeholder="">
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="">Nick Name</label>
+          <input type="text" name="nick_name" class="form-control" @if(isset($status)) value="{{$user->nick_name}}" @endif required id="" placeholder="">
         </div>
 
         @if (!isset($status))
@@ -62,7 +88,7 @@
         </script>
 
         <div class="form-group">
-          <input type="text" name="phone" class="form-control handphone" id="" @if(isset($status)) value="{{$user->phone}}" @endif placeholder="Phone Number">
+          <input type="text" name="phone" class="form-control handphone" id="" @if(isset($status)) value="{{$user->phone}}" @endif placeholder="Mobile Phone">
         </div>
 
         <div class="form-group">
@@ -82,7 +108,7 @@
         </div>
 
         <div class="form-group">
-          <textarea name="address" placeholder="Address" class="form-control"  rows="8" cols="80">@if(isset($status)) {{$user->address}}" @endif</textarea>
+          <textarea name="address" placeholder="Address" class="form-control"  rows="8" cols="80">@if(isset($status)){{$user->address}}@endif</textarea>
         </div>
 
       </div>
@@ -96,13 +122,13 @@
           <input type="file" class="form-control" accept=".pdf" name="resume" value="" @if(!isset($status)) required @endif>
         </div>
         <div class="form-group">
-          <label for=""><b>Tell about your self</b> </label>
-          <textarea name="about" placeholder="about your self" class="form-control"  rows="8" cols="80">@if(isset($status)) {{$user->about}}" @endif</textarea>
+          <label for=""><b>Tell about yourself</b> </label>
+          <textarea name="about" placeholder="about yourself" class="form-control"  rows="8" cols="80">@if(isset($status)){{$user->about}}@endif</textarea>
         </div>
 
 
         <div class="form-group">
-          <label for=""><b>Last Education</b></label>
+          <label for=""><b>Highest Education</b></label>
           <select class="form-control" name="last_education" required>
             <option @if(isset($status) && $user->marital_status == "SMA") selected @endif value="SMA">SMA</option>
             <option @if(isset($status) && $user->marital_status == "D1") selected @endif value="D1">D1</option>

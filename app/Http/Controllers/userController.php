@@ -48,7 +48,13 @@ class userController extends Controller
       $data = $request;
 
       $user = Auth::user();
-      $user->name = $data['name'];
+    
+      $user->first_name =$data['first_name'];
+      $user->middle_name =$data['middle_name'];
+      $user->last_name =$data['last_name'];
+      $user->nick_name =$data['nick_name'];
+      $user->name = $data['first_name'].' '.$data['middle_name'].' '.$data['last_name'];
+
       $user->gender = $data['gender'];
 
 
