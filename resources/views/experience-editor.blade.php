@@ -41,65 +41,33 @@
                 </div>
               </div>
             </div>
-            <div class="row" style="margin-top:20px">
-              <div class="col-md-12">
-                <table class="table">
-                  <tbody>
-                    <tr>
-                        <td>
-                          <span class="fa fa-birthday-cake" style="margin-right:20px"></span>
-                          <span>
-                            {{Auth::user()->born_date !== NULL ? Auth::user()->born_date->format('d-M-Y') : ''}} ({{Auth::user()->born_date !== NULL ? Auth::user()->born_date->age : ''}} Tahun)
-                          </span>
-                        </td>
-                        <td>
-                            <span class="fa fa-graduation-cap " style="margin-right:20px"></span>
-                            <span>
-                              {{Auth::user()->institution}} ({{Auth::user()->year}})
-                            </span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                          <span class="fa fa-mobile" style="margin-right:20px"></span>
-                          <span>
-                            {{Auth::user()->phone}}
-                          </span>
-                        </td>
-                        <td>
-                            <span class="fa fa-paper-plane " style="margin-right:20px"></span>
-                            <span>
-                              {{Auth::user()->major}} (GPA: {{Auth::user()->gpa}}/{{Auth::user()->gpa_max}})
-                            </span>
-                        </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        <span class="fa fa-id-card" style="margin-right:20px"></span>
-                        <span>
-                        CV:  <a href="{{Auth::user()->resume !== NULL ? Auth::user()->resume : '#'}}" target="_blank" class="btn btn-sm btn-success">Download</a>
-                        </span>
-                      </td>
-                    </tr>
-
-                  </tbody>
-                </table>
-              </div>
-            </div>
             <div class="row">
               <div class="col-md-12">
-                <p>{{Auth::user()->about}}</p>
-              </div>
-            </div>
-            <div class="row" style="margin-top:30px">
-              <div class="col-md-12">
-                <h3>
-                  Experience
-                  <a href="{{route('experience.add.index')}}" class="btn btn-sm btn-success">
-                    Add Experience
-                  </a>
-                </h3>
-                <hr>
+                <div class="row" style="margin-top:20px">
+                  <div class="col-md-12">
+                    <h3>Add Experience</h3>
+                    <hr>
+                    <div class="row">
+                      <div class="col-md-12">
+                        <div class="form-group">
+                          <label for="">Type:</label>
+                          <select class="form-control" name="cv_type" required>
+                            <option value="job" >Work</option>
+                            <option value="org" >Organization</option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-12">
+                        <div class="form-group">
+                          <label for="">Nama Perusahaan</label>
+                          <input type="text" class="form-control" id="" placeholder="">                          
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -135,7 +103,24 @@
     </div>
   </div>
 
+  <div class="modal fade" id="add-experience" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+     <div class="modal-dialog">
+       <div class="modal-content isimodal">
+         <div class="modal-header">
+           <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+           <h3>Add Career History</h3>
+         </div>
+         <div class="modal-body">
+           <div class="form-horizontal">
 
+
+
+         </div>
+       </div>
+     </div>
+   </div>
+  </div>
+</div>
 
   @if (session()->has('success'))
   <script type="text/javascript">

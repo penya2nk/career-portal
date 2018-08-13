@@ -32,6 +32,20 @@ class sudoController extends Controller
         $user->token = str_random(20);
         $user->status = 0;
         $user->userlevel = 1;
+
+        if ($user_blst->id_gender = "1") {
+          $gender = "L";
+        }else {
+          $gender = "P";
+        }
+
+        $user->born_date = $user_blst->tgl_born;
+        $user->born_place = $user_blst->born_place_kab;
+        $user->phone = $user_blst->phno1;
+        $user->gender = $gender;
+        $user->address = $user_blst->address_origin;
+        $user->profpic = "https://system.ipbsciencetechnopark.com/images/foto/'.$user_blst->id_user.'.jpeg";      
+
         $user->company_id = $user_company;
         $user->password =bcrypt($user_pass);
         $user->id_blst = $user_id;

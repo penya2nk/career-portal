@@ -110,7 +110,16 @@ class userController extends Controller
       return redirect()->route('my.profile')->with('success', 'Your profile has been saved');
     }
 
-    public function add_history(Request $request)
+    public function add_history()
+    {
+
+      $user = Auth::user();
+      $data = array('user' => $user,);
+
+      return view('experience-editor')->with($data);
+    }
+
+    public function new_history(Request $request)
     {
       $databaseuser= new employhistory;
       $databaseuser->user_id                    = Auth::user()->id;

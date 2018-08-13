@@ -48,7 +48,8 @@ Route::get('/profile','userController@profile')->name('my.profile');
 Route::get('/application','userController@application')->name('my.application');
 Route::get('/profile/edit', 'userController@edit_profile')->name('profile.edit');
 Route::post('/profile/edit','userController@update_profile')->name('profile.update');
-Route::post('/experience/add','userController@add_history')->name('experience.add');
+Route::get('/experience/add','userController@add_history')->name('experience.add.index');
+Route::post('/experience/add','userController@new_history')->name('experience.add.post');
 
 // SELEKSI
 // Seleksi Section
