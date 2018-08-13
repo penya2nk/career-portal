@@ -46,4 +46,9 @@ class User extends Authenticatable
     {
       return $this->hasMany('App\models\applier','user_id');
     }
+
+    public function experiences()
+    {
+      return $this->hasMany('App\models\employhistory','user_id');
+    }
 }

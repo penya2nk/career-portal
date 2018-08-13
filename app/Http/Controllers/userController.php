@@ -17,6 +17,17 @@ use App\models\employhistory;
 
 class userController extends Controller
 {
+
+    protected function validator(array $data)
+    {
+        return Validator::make($data, [
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users',
+            'password' => 'required|string|min:6|confirmed',
+        ]);
+    }
+
+
     public function profile()
     {
       $user = Auth::user();
@@ -121,6 +132,7 @@ class userController extends Controller
 
     public function new_history(Request $request)
     {
+
       $databaseuser= new employhistory;
       $databaseuser->user_id                    = Auth::user()->id;
       $databaseuser->cv_position                = $request->cv_position;
@@ -136,9 +148,23 @@ class userController extends Controller
       return redirect()->route('my.profile')->with('success', 'Your Career History has been saved');
     }
 
-    public function update_history(Request $request, $id)
+    public function edit_history(Request $request)
     {
-      $databaseuser= employhistory::find($id);
+
+      $user = Auth::user();
+      $exp = employhistory::find($request->id_exp);
+      $data = array(
+        'user' => $user,
+        'exp'=>$exp,
+        'status'=>"edit"
+      );
+
+      return view('experience-editor')->with($data);
+    }
+
+    public function update_history(Request $request)
+    {
+      $databaseuser= employhistory::find($request->id_exp);
       $databaseuser->user_id                    = Auth::user()->id;
       $databaseuser->cv_position                = $request->cv_position;
       $databaseuser->cv_type                    = $request->cv_type;

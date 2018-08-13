@@ -33,7 +33,7 @@
               </div>
             </div>
           </div>
-          <div class="col-md-8">
+          <div class="col-md-6">
             <div class="row">
               <div class="col-md-12">
                 <div class="" style="margin-top: 21px;color:white; display:block; height:69px">
@@ -45,27 +45,94 @@
               <div class="col-md-12">
                 <div class="row" style="margin-top:20px">
                   <div class="col-md-12">
-                    <h3>Add Experience</h3>
-                    <hr>
-                    <div class="row">
-                      <div class="col-md-12">
-                        <div class="form-group">
-                          <label for="">Type:</label>
-                          <select class="form-control" name="cv_type" required>
-                            <option value="job" >Work</option>
-                            <option value="org" >Organization</option>
-                          </select>
+
+                    <form class="" @if(isset($status)) action="{{route('experience.add.update')}}" @else action="{{route('experience.add.post')}}" @endif  method="post">
+                      {{ csrf_field() }}
+                      <h3>Add Experience</h3>
+                      <hr>
+                      <div class="row">
+                        <div class="col-md-12">
+                          <div class="form-group">
+                            <label for="">Type:</label>
+                            <select class="form-control" name="cv_type" required>
+                              <option  @if(isset($status) && $exp->cv_type == "job") selected @endif  value="job" >Work</option>
+                              <option  @if(isset($status) && $exp->cv_type == "org") selected @endif value="org" >Organization</option>
+                            </select>
+                          </div>
                         </div>
                       </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-md-12">
-                        <div class="form-group">
-                          <label for="">Nama Perusahaan</label>
-                          <input type="text" class="form-control" id="" placeholder="">                          
+                      <div class="row">
+                        <div class="col-md-12">
+                          <div class="form-group">
+                            <label for="">Nama Perusahaan / Organisasi</label>
+                            <input type="text"  @if(isset($status)) value="{{$exp->cv_company}}" @endif name="cv_company" required class="form-control" id="" placeholder="">
+                          </div>
                         </div>
                       </div>
-                    </div>
+                      <div class="row">
+                        <div class="col-md-12">
+                          <div class="form-group">
+                            <label for="">Posisi</label>
+                            <input type="text" class="form-control" @if(isset($status)) value="{{$exp->cv_position}}" @endif name="cv_position" value="" required>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-12">
+                          <div class="form-group">
+                            <label for="">Tempat</label>
+                            <input type="text" class="form-control" @if(isset($status)) value="{{$exp->cv_city}}" @endif name="cv_city" value="" required>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-6">
+                          <div class="form-group">
+                            <label for="">Dari Tanggal</label>
+                            <div class="input-group">
+                              <input type="date" class="form-control tanggal" @if(isset($status)) value="{{$exp->y1_sdmcv->format('Y-m-d')}}" @endif name="y1_sdmcv" required>
+                              <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-calendar"></span>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-md-6">
+                            <div class="form-group">
+                              <label for="">Hingga Tanggal</label>
+                              <div class="input-group">
+                                <input type="date" class="form-control tanggal" @if(isset($status)) value="{{$exp->y2_sdmcv->format('Y-m-d')}}" @endif name="y2_sdmcv" required>
+                                <span class="input-group-addon">
+                                  <span class="glyphicon glyphicon-calendar"></span>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+
+                          <div class="row">
+                            <div class="col-md-12">
+                              <div class="form-group">
+                                <label for="description" class="control-label">Deskripsi Kerja</label>
+                                <textarea class="form-control" name="cv_description" rows="8" cols="80" required>@if(isset($status)){{$exp->cv_description}}@endif</textarea>
+                                <span class="help-block with-errors"></span>
+                              </div>
+                            </div>
+                          </div>
+
+                          @if(isset($status))
+                            <input type="hidden" name="id_exp" value="{{$exp->id}}">
+                          @endif
+
+                          <div class="row">
+                            <div class="col-md-12">
+                              <button type="sumbit" class="btn btn-success">
+                                Submit
+                              </button>
+                            </div>
+                          </div>
+                    </form>
+
+
+
                   </div>
                 </div>
               </div>

@@ -149,6 +149,53 @@
             @endif
           </div>
         </div>
+
+        <div class="row" style="margin-top:30px">
+          <div class="col-md-12">
+            <h3>
+              Experience
+            </h3>
+            <hr>
+          </div>
+        </div>
+
+        @if ($user->experiences()->count() !== 0)
+          @foreach ($user->experiences as $experience)
+            <div class="row">
+              <div class="col-md-12">
+                <div class="card-wrapper-job" style="background:#ededed">
+                  <div class="row">
+                    <div class="col-md-6">
+                      <span class="card-job-title" style="font-size:21pt">
+                        {{$experience->cv_position}}
+                      </span>
+                      <div class="job-time-criteria">
+                        <span class="fa fa-briefcase"></span>
+                        {{$experience->cv_company}}
+                      </div>
+                      <div class="job-time-criteria">
+                        <span class="fa fa-map-marker"></span>
+                        {{$experience->cv_city}}
+                      </div>
+                      <div class="job-time-criteria">
+                        <span class="fa fa-calendar"></span>
+                        {{$experience->y1_sdmcv->format('d F Y')}} - {{$experience->y2_sdmcv->format('d F Y')}}
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="Deskripsi" style="font-size: 10pt; color: gray;">
+                        <p>
+                          {{$experience->cv_description}}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                  
+                </div>
+              </div>
+            </div>
+          @endforeach
+        @endif
       </div>
     </div>
   </div>
