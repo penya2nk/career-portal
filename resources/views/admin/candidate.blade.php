@@ -248,9 +248,7 @@
                   <div class="col-md-2">
                     <div class="form-group">
                       <label style="font-size: 10pt; font-weight: 100;" for="">{{$parameter->parameter_name}} (0-{{$parameter->skala}})</label>
-
                       <div class="">
-
                         <form class="" action="{{route('score.each.save')}}" method="post" style="display: inherit;">
                           {{ csrf_field() }}
 
@@ -258,8 +256,8 @@
                           max="{{$parameter->skala}}"
                           step="0.01"
                           name="{{$parameter->id}}"
-                          @if ($user->parameters()->where('parameter_id', $parameter->id)->first() !== NULL)
-                            @if ($user->parameters()->where('parameter_id', $parameter->id)->first()->pivot->lock == "1")
+                          @if ($user->parameters()->where([['parameter_id', $parameter->id],['appraiser_id', Auth::user()->id]])->first() !== NULL)
+                            @if ($user->parameters()->where([['parameter_id', $parameter->id],['appraiser_id', Auth::user()->id]])->first()->pivot->lock == "1")
                               disabled
                               {{-- type="password" --}}
                               type="number"
@@ -269,18 +267,23 @@
                           @else
                             type="number"
                           @endif
-                          value="{{$user->parameters()->where([['parameter_id', $parameter->id],['job_id',$_GET['job']]])->first() !== NULL ? $user->parameters()->where('parameter_id', $parameter->id)->first()->pivot->score : '0'}}"
+                          value="{{$user
+                            ->parameters()->where([['parameter_id', $parameter->id],['job_id',$_GET['job']],['appraiser_id', Auth::user()->id]])->first() !== NULL ?
+                            $user->parameters()->where([['parameter_id', $parameter->id],['job_id',$_GET['job']],['appraiser_id', Auth::user()->id]])->first()->pivot->score
+                            : '0'}}"
                           id="" placeholder="">
 
                           <input
                           {{-- type="text" --}}
-                          class="form-control"
+                          class="form-control comment"
                           placeholder="komentar"
                           style="font-size:8pt"
-                          name="comment"
-                          value="{{$user->parameters()->where('parameter_id', $parameter->id)->first() !== NULL ? $user->parameters()->where('parameter_id', $parameter->id)->first()->pivot->comment : ''}}"
-                          @if ($user->parameters()->where('parameter_id', $parameter->id)->first() !== NULL)
-                            @if ($user->parameters()->where('parameter_id', $parameter->id)->first()->pivot->lock == "1")
+                          name="comment[{{$parameter->id}}]"
+                          value="{{$user->parameters()->where([['parameter_id', $parameter->id],['job_id',$_GET['job']],['appraiser_id', Auth::user()->id]])->first() !== NULL ?
+                            $user->parameters()->where([['parameter_id', $parameter->id],['job_id',$_GET['job']],['appraiser_id', Auth::user()->id]])->first()->pivot->comment :
+                            ''}}"
+                          @if ($user->parameters()->where([['parameter_id', $parameter->id],['job_id',$_GET['job']],['appraiser_id', Auth::user()->id]])->first() !== NULL)
+                            @if ($user->parameters()->where([['parameter_id', $parameter->id],['job_id',$_GET['job']],['appraiser_id', Auth::user()->id]])->first()->pivot->lock == "1")
                               disabled
                               {{-- type="password" --}}
                               type="text"
@@ -296,18 +299,17 @@
                           <input type="hidden" name="user_id" value="{{$user->id}}">
                           <input type="hidden" name="job_id" value="{{$_GET['job']}}">
 
-                          @if ($user->parameters()->where('parameter_id', $parameter->id)->first() == NULL || $user->parameters()->where('parameter_id', $parameter->id)->first()->pivot->lock == "0")
+                          @if ($user->parameters()->where([['parameter_id', $parameter->id],['job_id',$_GET['job']],['appraiser_id', Auth::user()->id]])->first() == NULL ||
+                          $user->parameters()->where([['parameter_id', $parameter->id],['job_id',$_GET['job']],['appraiser_id', Auth::user()->id]])->first()->pivot->lock == "0")
                             <button type="submit" class="btn btn-sm btn-block btn-fill btn-success">
                               Save
                             </button>
                           @endif
 
-
-
                         </form>
 
-                        @if ($user->parameters()->where('parameter_id', $parameter->id)->first() !== NULL)
-                          @if ($user->parameters()->where('parameter_id', $parameter->id)->first()->pivot->lock == "0")
+                        @if ($user->parameters()->where([['parameter_id', $parameter->id],['job_id',$_GET['job']],['appraiser_id', Auth::user()->id]])->first() !== NULL)
+                          @if ($user->parameters()->where([['parameter_id', $parameter->id],['job_id',$_GET['job']],['appraiser_id', Auth::user()->id]])->first()->pivot->lock == "0")
                             <span class="grup-lock">
                               <form class="" action="{{route('score.lock')}}" method="post">
                                 {{ csrf_field() }}
@@ -331,21 +333,23 @@
           @endforeach
 
         @endforeach
-      </div>
-
-        {{-- <div class="row">
+        <div class="row">
           <div class="col-md-12">
-            <button type="button" id="save-score" class="btn btn-block btn-default">
+            <button type="button" id="save-score" class="btn btn-block btn-warning">
               Save
             </button>
           </div>
-        </div> --}}
+        </div>
+      </div>
+
+
     </div>
     <script type="text/javascript">
       $(document).ready(function() {
         $('#save-score').on('click', function() {
           var nilai = $('.parameter-seleksi').serialize();
-          console.log(nilai)
+          var comment = $('.comment').serialize();
+          console.log(comment)
 
           $.ajax({
             url: '{{route('score.save')}}',
@@ -354,7 +358,9 @@
             data: {
               "_token": "{{ csrf_token() }}",
               "score": nilai,
-              "user_id":{{$user->id}}
+              "user_id":{{$user->id}},
+              "job_id":{{$_GET['job']}},
+              "comments":comment
             }
           })
           .done(function() {

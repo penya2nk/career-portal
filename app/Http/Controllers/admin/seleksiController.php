@@ -353,25 +353,45 @@ class seleksiController extends Controller
 
     public function save_score()
     {
+
       $request = $_REQUEST['score'];
       $user_id = $_REQUEST['user_id'];
+      $job_id = $_REQUEST['job_id'];
+      $comments = $_REQUEST['comments'];
       $explodes = explode('&',$request);
+      $comments = explode('&',$comments);
+      $appraiser = Auth::user()->id;
 
-      foreach ($explodes as $value) {
+      foreach ($explodes as $key => $value) {
         // Memecah = menjadi satuan
         $scores = explode('=', $value);
         $id_parameter = $scores[0];
         $score = $scores[1];
 
+        $komen = explode('=', $comments[$key]);
+        $id_comments = $komen[0];
+        $comment = $komen[1];
+
         $user = user::find($user_id);
 
-        $count_exist = $user->parameters()->where('parameter_id', $id_parameter)->first();
-        // dd($count_exist !== NULL);
+        $count_exist = $user->parameters()->where([['parameter_id', $id_parameter],['appraiser_id', $appraiser],['job_id', $job_id]])->first();
 
         if ($count_exist !== NULL) {
-          $user->parameters()->updateExistingPivot($id_parameter, ['score' => $score, 'user_submit'=>Auth::user()->name]);
+          $user->parameters()->updateExistingPivot($id_parameter, [
+            'score' => $score,
+            'user_submit'=>Auth::user()->name,
+            'comment'=>urldecode($comment),
+            'job_id'=>$job_id,
+            'appraiser_id'=>$appraiser
+          ]);
         }else {
-          $user->parameters()->attach($id_parameter, ['score' => $score, 'user_submit'=>Auth::user()->name]);
+          $user->parameters()->attach($id_parameter, [
+            'score' => $score,
+            'user_submit'=>Auth::user()->name,
+            'comment'=>urldecode($comment),
+            'job_id'=>$job_id,
+            'appraiser_id'=>$appraiser
+          ]);
         }
 
       }
@@ -398,6 +418,7 @@ class seleksiController extends Controller
       $user_id = $request->user_id;
       $scores = $request->$parameter;
       $comment = $request->comment;
+      $appraiser = Auth::user()->id;
 
       $id_parameter = $parameter;
       $score = $scores;
@@ -406,7 +427,7 @@ class seleksiController extends Controller
       $parameter =parameter::find($parameter);
       $job = job::find($request->job_id);
 
-      $count_exist = $user->parameters()->where([['parameter_id', $id_parameter],['job_id', $request->job_id]])->first();
+      $count_exist = $user->parameters()->where([['parameter_id', $id_parameter],['appraiser_id', $appraiser],['job_id', $request->job_id]])->first();
       // dd($count_exist !== NULL);
 
       if ($count_exist !== NULL) {
@@ -415,7 +436,8 @@ class seleksiController extends Controller
           'score' => $score,
           'user_submit'=>Auth::user()->name,
           'comment'=>$comment,
-          'job_id'=>$request->job_id
+          'job_id'=>$request->job_id,
+          'appraiser_id'=>$appraiser
         ]);
       }else {
         $user->parameters()->attach($id_parameter,
@@ -423,7 +445,8 @@ class seleksiController extends Controller
           'score' => $score,
           'user_submit'=>Auth::user()->name,
           'comment'=>$comment,
-          'job_id'=>$request->job_id
+          'job_id'=>$request->job_id,
+          'appraiser_id'=>$appraiser
         ]);
       }
 

@@ -55,7 +55,7 @@ Applier {{$job->job_title}}
                   <td>{{$applier->user->institution}}</td>
                   <td>{{$applier->stage !== NULL ? $applier->stage->stage_name : 'Submit'}}</td>
                   <td>
-                    <a href="{{route('admin.candidate.preview',['id'=>$applier->user->id,'seleksi'=>$applier->user->id,'job'=>$job->id])}}" class="btn btn-sm btn-primary">Preview</a>
+                    <a href="{{route('admin.candidate.preview',['id'=>$applier->user->id,'seleksi'=>$applier->user->id,'job'=>$job->id])}}" class="btn btn-sm btn-primary">Nilai Kandidat</a>
                   </td>
                 </tr>
               @endforeach
