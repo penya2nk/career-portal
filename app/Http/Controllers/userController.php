@@ -73,6 +73,8 @@ class userController extends Controller
       $user->born_date = Carbon::createFromFormat('d-m-Y',$data['born_date']);
       $user->marital_status = $data['marital_status'];
       $user->address = $data['address'];
+      $user->instagram = $data['instagram'];
+      $user->facebook = $data['facebook'];
 
       $user->last_education = $data['last_education'];
       $user->institution = $data['institution'];
@@ -177,5 +179,11 @@ class userController extends Controller
       $databaseuser->save();
 
       return redirect()->route('my.profile')->with('success', 'Your Career History has been changed');
+    }
+
+    public function delete_history(Request $request)
+    {
+      $databaseuser= employhistory::find($request->id_exp)->delete();
+      return redirect()->route('my.profile')->with('success', 'Your Career History has been Deleted');
     }
 }

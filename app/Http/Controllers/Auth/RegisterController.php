@@ -109,6 +109,9 @@ class RegisterController extends Controller
       $user->marital_status = $data['marital_status'];
       $user->address = $data['address'];
 
+      $user->instagram = $data['instagram'];
+      $user->facebook = $data['facebook'];
+
       $user->last_education = $data['last_education'];
       $user->institution = $data['institution'];
       $user->year = $data['year'];

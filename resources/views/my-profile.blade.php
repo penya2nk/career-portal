@@ -75,6 +75,20 @@
                     </tr>
                     <tr>
                       <td>
+                        <span class="fa fa-facebook-square" style="margin-right:20px"></span>
+                        <span>
+                        <a href="{{Auth::user()->facebook !== NULL ? 'https://www.facebook.com/'.Auth::user()->facebook : '#'}}" target="_blank" class="btn btn-sm btn-primary">Facebook</a>
+                        </span>
+                      </td>
+                      <td>
+                        <span class="fa fa-instagram" style="margin-right:20px"></span>
+                        <span>
+                        <a href="{{Auth::user()->instagram !== NULL ? 'https://www.instagram.com/'.Auth::user()->instagram : '#'}}" target="_blank" class="btn btn-sm btn-warning">Instagram</a>
+                        </span>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
                         <span class="fa fa-id-card" style="margin-right:20px"></span>
                         <span>
                         CV:  <a href="{{Auth::user()->resume !== NULL ? Auth::user()->resume : '#'}}" target="_blank" class="btn btn-sm btn-success">Download</a>
@@ -134,16 +148,19 @@
                           </div>
                         </div>
                       </div>
-                      <form class="" style="position: absolute;
-    right: 10px;
-    bottom: 10px;
-    opacity: 0.4;" action="{{route('experience.add.edit')}}" method="post">
+                      <form class="" style="position: absolute; right: 10px; bottom: 10px; opacity: 0.4;" action="{{route('experience.add.edit')}}" method="post">
                         {{ csrf_field() }}
                         <input type="hidden" name="id_exp" value="{{$experience->id}}">
                         <button type="submit" class="btn btn-secondary btn-sm">
                           Edit
                         </button>
-
+                      </form>
+                      <form class="" style="position: absolute; right: 64px; bottom: 10px; opacity: 0.4;" action="{{route('experience.add.delete')}}" method="post">
+                        {{ csrf_field() }}
+                        <input type="hidden" name="id_exp" value="{{$experience->id}}">
+                        <button type="button" class="btn btn-sm btn-default delete-button">
+                          Delete
+                        </button>
                       </form>
                     </div>
                   </div>
@@ -198,4 +215,25 @@
 
   </script>
   @endif
+
+  <script type="text/javascript">
+                $('.delete-button').on('click', function() {
+                  swal({
+                    title: "Hapus ?",
+                    text: "Apakah anda yakin ingin menghapus ?",
+                    type: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#f44336",
+                    confirmButtonText: "Ya, Saya Yakin !",
+                    cancelButtonText: "Cancel"
+
+                  }).then((result) => {
+                if (result.value) {
+                  $(this).parent().submit();
+                }
+              });
+
+
+                });
+              </script>
 @endsection

@@ -90,6 +90,23 @@
           </div>
         </div>
 
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for=""><span class="fa fa-facebook-square"></span> Facebook</label>
+              <input type="text" name="facebook" @if(isset($status)) value="{{$user->facebook}}" @endif class="form-control" id="" placeholder="Optional">
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for=""><span class="fa fa-instagram"></span> Instagram</label>
+              <div class="input-group">
+                <span class="input-group-addon">@</span>
+                <input type="text" name="instagram" @if(isset($status)) value="{{$user->instagram}}" @endif class="form-control" id="" placeholder="Optional">
+              </div>
+            </div>
+          </div>
+        </div>
 
         <script type="text/javascript">
             $(function () {
