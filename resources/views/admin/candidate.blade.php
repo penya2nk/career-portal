@@ -143,7 +143,7 @@
             <p>{{$user->about}}</p>
           </div>
         </div>
-        <div class="row" style="margin-bottom:200px">
+        <div class="row" style="margin-bottom:20px">
           <div class="col-md-6">
             @if (isset($_GET['seleksi']) && isset($_GET['job']))
               @php
@@ -299,16 +299,16 @@
                           <input type="hidden" name="user_id" value="{{$user->id}}">
                           <input type="hidden" name="job_id" value="{{$_GET['job']}}">
 
-                          @if ($user->parameters()->where([['parameter_id', $parameter->id],['job_id',$_GET['job']],['appraiser_id', Auth::user()->id]])->first() == NULL ||
+                          {{-- @if ($user->parameters()->where([['parameter_id', $parameter->id],['job_id',$_GET['job']],['appraiser_id', Auth::user()->id]])->first() == NULL ||
                           $user->parameters()->where([['parameter_id', $parameter->id],['job_id',$_GET['job']],['appraiser_id', Auth::user()->id]])->first()->pivot->lock == "0")
                             <button type="submit" class="btn btn-sm btn-block btn-fill btn-success">
                               Save
                             </button>
-                          @endif
+                          @endif --}}
 
                         </form>
 
-                        @if ($user->parameters()->where([['parameter_id', $parameter->id],['job_id',$_GET['job']],['appraiser_id', Auth::user()->id]])->first() !== NULL)
+                        {{-- @if ($user->parameters()->where([['parameter_id', $parameter->id],['job_id',$_GET['job']],['appraiser_id', Auth::user()->id]])->first() !== NULL)
                           @if ($user->parameters()->where([['parameter_id', $parameter->id],['job_id',$_GET['job']],['appraiser_id', Auth::user()->id]])->first()->pivot->lock == "0")
                             <span class="grup-lock">
                               <form class="" action="{{route('score.lock')}}" method="post">
@@ -322,7 +322,7 @@
                               </form>
                             </span>
                           @endif
-                        @endif
+                        @endif --}}
 
                       </div>
                     </div>
@@ -363,14 +363,20 @@
               "comments":comment
             }
           })
-          .done(function() {
-            console.log("success");
+          .done(function(data) {
+            swal({
+                title:data.message,
+                type:'success'
+              },
+            );
           })
           .fail(function() {
-            console.log("error");
-          })
-          .always(function() {
-            console.log("complete");
+            swal({
+                title:'Error',
+                text:'Please input valid value',
+                type:'error'
+              },
+            );
           });
 
 

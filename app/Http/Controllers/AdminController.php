@@ -9,6 +9,7 @@ use App\models\company;
 use App\models\job;
 use App\tbluser;
 use App\User;
+use App\models\appraiser;
 use App\models\admin;
 use Session;
 
@@ -59,6 +60,12 @@ class AdminController extends Controller
       return $check;
     }
 
+    public function check_appraiser_exists($job_id, $id_blst)
+    {
+      $check = appraiser::where([['job_id', $job_id],['id_blst', $id_blst]])->exists();
+      return $check;
+    }
+
     public function jobvacancy_create(Request $request)
     {
       $job = new job;
@@ -79,8 +86,7 @@ class AdminController extends Controller
       // integrasi BLST
       if ($request->id_blst !== NULL) {
         foreach ($request->id_blst as $key => $value) {
-          $check_ada_admin = $this->check_admin_exists($job->id, $value);
-          if (!$check_ada_admin) {
+          // $check = admin::where([['job_id', $job_id],['id_blst', $value]])->delete();
             $addadmin = new admin;
             $addadmin->job_id = $job->id;
             $addadmin->id_blst = $value;
@@ -89,11 +95,31 @@ class AdminController extends Controller
             if ($tbluser !== NULL) {
               $addadmin->email = $tbluser->email;
             }
-
             $addadmin->save();
-          }
+
         }
       }
+
+
+      // integrasi BLST untuk tim penilai
+      if ($request->appraiser !== NULL) {
+        foreach ($request->appraiser as $key => $value) {
+          // $check = appraiser::where([['job_id', $job->id],['id_blst', $value]])->delete();
+
+            $addappraiser = new appraiser;
+            $addappraiser->job_id = $job->id;
+            $addappraiser->id_blst = $value;
+
+            $tbluser =tbluser::where('id_user', $value)->first();
+            if ($tbluser !== NULL) {
+              $addappraiser->email = $tbluser->email;
+            }
+
+            $addappraiser->save();
+
+        }
+      }
+
 
       Session::flash('status','Job Vacancy Successfully Created');
 
@@ -136,6 +162,7 @@ class AdminController extends Controller
     public function jobvacancy_edit_post(Request $request, $id)
     {
 
+
       $job = job::find($id);
       $job->published = $request->published;
       $job->company_id = $request->company_id;
@@ -150,11 +177,13 @@ class AdminController extends Controller
       $job->min_experience = $request->min_experience;
       $job->update();
 
+
       // integrasi BLST
       if ($request->id_blst !== NULL) {
         foreach ($request->id_blst as $key => $value) {
-          $check_ada_admin = $this->check_admin_exists($job->id, $value);
-          if (!$check_ada_admin) {
+          $check = admin::where([['job_id', $job->id]])->delete();
+          // $check->delete();
+
             $addadmin = new admin;
             $addadmin->job_id = $job->id;
             $addadmin->id_blst = $value;
@@ -165,9 +194,29 @@ class AdminController extends Controller
             }
 
             $addadmin->save();
-          }
+
         }
       }
+
+      // integrasi BLST untuk tim penilai
+      if ($request->appraiser !== NULL) {
+        foreach ($request->appraiser as $key => $value) {
+            $check = appraiser::where([['job_id', $job->id]])->delete();
+
+            $addappraiser = new appraiser;
+            $addappraiser->job_id = $job->id;
+            $addappraiser->id_blst = $value;
+
+            $tbluser =tbluser::where('id_user', $value)->first();
+            if ($tbluser !== NULL) {
+              $addappraiser->email = $tbluser->email;
+            }
+
+            $addappraiser->save();
+
+        }
+      }
+
 
       Session::flash('status','Job Vacancy Successfully Edited');
 

@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use App\models\job;
 use App\User;
 use App\models\stage;
+use App\models\parameter;
 
 class applier extends Model
 {
@@ -22,5 +23,10 @@ class applier extends Model
     public function stage()
     {
       return $this->belongsTo(stage::class);
+    }
+
+    public function user_parameters()
+    {
+      return $this->belongsTo('App\models\user_parameter', 'parameter_id');
     }
 }

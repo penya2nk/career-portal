@@ -28,4 +28,9 @@ class job extends Model
     return $this->hasMany('App\models\admin', 'job_id');
   }
 
+  public function appraiser()
+  {
+    return $this->hasMany('App\models\appraiser', 'job_id');
+  }
+
 }

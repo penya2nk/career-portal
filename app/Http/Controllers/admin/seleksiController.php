@@ -15,6 +15,7 @@ use App\models\user_parameter;
 use App\models\job;
 use App\models\applier;
 use App\models\admin;
+use App\models\appraiser;
 use Session;
 
 
@@ -45,9 +46,12 @@ class seleksiController extends Controller
                     $email = $user->email;
 
                     $admin_able = admin::where([['job_id', $id],['id_blst',$id_blst]])->exists();
+                    $appraiser_able = appraiser::where([['job_id', $id],['id_blst',$id_blst]])->exists();
+
+
                     $owner = $user_maker->id == Auth::user()->id;
 
-                    if (!$admin_able && !$owner) {
+                    if (!$admin_able && !$owner && !$appraiser_able ) {
                       Session::flash('error','Anda belum menjadi bagian admin dari lowongan kerja ini. Hubungi '.$user_maker->name.' selaku pembuat lowongan');
                       return redirect()->route('admin.jobvacancy.index');
                     }
@@ -377,13 +381,20 @@ class seleksiController extends Controller
         $count_exist = $user->parameters()->where([['parameter_id', $id_parameter],['appraiser_id', $appraiser],['job_id', $job_id]])->first();
 
         if ($count_exist !== NULL) {
-          $user->parameters()->updateExistingPivot($id_parameter, [
-            'score' => $score,
-            'user_submit'=>Auth::user()->name,
-            'comment'=>urldecode($comment),
-            'job_id'=>$job_id,
-            'appraiser_id'=>$appraiser
-          ]);
+          $param = user_parameter::where([['parameter_id', $id_parameter],['appraiser_id', $appraiser],['job_id', $job_id]])->first();
+          $param->score = $score;
+          $param->user_submit =Auth::user()->name;
+          $param->comment =urldecode($comment);
+          $param->job_id =$job_id;
+          $param->save();
+
+          // $user->parameters()->where([['parameter_id', $id_parameter],['appraiser_id', $appraiser],['job_id', $job_id]])->updateExistingPivot($id_parameter, [
+          //   'score' => $score,
+          //   'user_submit'=>Auth::user()->name,
+          //   'comment'=>urldecode($comment),
+          //   'job_id'=>$job_id,
+          //   'appraiser_id'=>$appraiser
+          // ]);
         }else {
           $user->parameters()->attach($id_parameter, [
             'score' => $score,
@@ -396,7 +407,12 @@ class seleksiController extends Controller
 
       }
 
-      dd("berhasil Save");
+      $data = array(
+      'status' => '202',
+      'message'   => "Penilaian berhasil disimpan",
+      // 'stage'   => $stage->stage_name
+      );
+      return response()->json($data);
 
     }
 

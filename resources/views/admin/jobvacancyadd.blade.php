@@ -40,14 +40,37 @@ Add Job Vacancy
     <div class="col-md-12">
       <div class="card">
         <div class="card-header">
-          <strong>Admin</strong>
+          <strong>Super Admin</strong>
+          <small>person yang bisa menilai dan melihat nilai dan bisa menenentukan tahap mana menilai</small>
         </div>
         <div class="card-body card-block">
           <div class="form-group">
             <select multiple class="form-control select2" name="id_blst[]">
               @foreach ($tbluser as $user)
                 <option
-                  @if(isset($status)) @if(in_array($user->id_user, $job->admins->pluck('id_blst')->toArray())) selected @endif @endif
+                  @if(isset($status) && $job->admins()->count() !== 0) @if(in_array($user->id_user, $job->admins->pluck('id_blst')->toArray())) selected @endif @endif
+                  value="{{$user->id_user}}">{{$user->name_user}}</option>
+              @endforeach
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header">
+          <strong>Daftar Penilai</strong>
+          <small>person yang hanya bisa menilai</small>
+        </div>
+        <div class="card-body card-block">
+          <div class="form-group">
+            <select multiple class="form-control select2" name="appraiser[]">
+              @foreach ($tbluser as $user)
+                <option
+                  @if(isset($status) && $job->appraiser()->count() !== 0) @if(in_array($user->id_user, $job->appraiser->pluck('id_blst')->toArray())) selected @endif @endif
                   value="{{$user->id_user}}">{{$user->name_user}}</option>
               @endforeach
             </select>
