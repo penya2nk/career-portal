@@ -108,6 +108,24 @@
                     </td>
                 </tr>
                 <tr>
+                  @if ($user->facebook !== NULL)
+                    <td>
+                      <span class="fa fa-facebook-square" style="margin-right:20px"></span>
+                      <span>
+                        <a href="{{$user->facebook !== NULL ? 'https://www.facebook.com/'.$user->facebook : '#'}}" target="_blank" class="btn btn-sm btn-primary">{{$user->facebook}}</a>
+                      </span>
+                    </td>
+                  @endif
+                  @if ($user->instagram !== NULL)
+                    <td>
+                      <span class="fa fa-instagram" style="margin-right:20px"></span>
+                      <span>
+                        <a href="{{$user->instagram !== NULL ? 'https://www.instagram.com/'.$user->instagram : '#'}}" target="_blank" class="btn btn-sm btn-warning">{{'@'.$user->instagram}}</a>
+                      </span>
+                    </td>
+                  @endif
+                </tr>
+                <tr>
                   <td>
                     <span class="fa fa-id-card" style="margin-right:20px"></span>
                     <span>
@@ -190,7 +208,7 @@
                       </div>
                     </div>
                   </div>
-                  
+
                 </div>
               </div>
             </div>
